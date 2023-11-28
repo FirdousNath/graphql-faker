@@ -1,0 +1,146 @@
+import {
+  execute,
+  ExecutionArgs,
+  GraphQLError,
+  isAbstractType,
+  Kind,
+  print,
+  separateOperations,
+  TypeInfo,
+  visit,
+  visitWithTypeInfo,
+} from 'graphql';
+import { IncomingMessage } from 'http';
+import { graphqlRequest } from './utils';
+
+export function getProxyExecuteFn(url: string) {
+  return (args: ExecutionArgs) => {
+    const { schema, document, contextValue, operationName } = args;
+    const request = contextValue as IncomingMessage;
+    const strippedAST = removeUnusedVariables(stripExtensionFields(schema, document));
+    const operations = separateOperations(strippedAST);
+    const operationAST = operationName
+      ? operations[operationName]
+      : Object.values(operations)[0];
+
+    // Correct the headers
+    const tempHeader = { ...request.headers };
+    delete tempHeader['host'];
+    
+    return graphqlRequest(
+      url,
+      print(operationAST),
+      args.variableValues,
+      operationName,
+    ).then((result) => proxyResponse(result, args));
+  };
+}
+
+function proxyResponse(response, args) {
+  const rootValue = response.data || {};
+  const globalErrors = [];
+
+  for (const error of response.errors || []) {
+    const { message, path, extensions } = error;
+    const errorObj = new GraphQLError(
+      message,
+      undefined,
+      undefined,
+      undefined,
+      path,
+      undefined,
+      extensions,
+    );
+
+    if (!path) {
+      globalErrors.push(errorObj);
+      continue;
+    }
+
+    // Recreate root value up to a place where original error was thrown
+    // and place error as field value.
+    pathSet(rootValue, error.path, errorObj);
+  }
+
+  if (globalErrors.length !== 0) {
+    return { errors: globalErrors };
+  }
+
+  return execute({ ...args, rootValue });
+}
+
+function pathSet(rootObject, path, value) {
+  let currentObject = rootObject;
+
+  const basePath = [...path];
+  const lastKey = basePath.pop();
+  for (const key of basePath) {
+    if (currentObject[key] == null) {
+      currentObject[key] = typeof key === 'number' ? [] : {};
+    }
+    currentObject = currentObject[key];
+  }
+
+  currentObject[lastKey] = value;
+}
+
+function injectTypename(node) {
+  return {
+    ...node,
+    selections: [
+      ...node.selections,
+      {
+        kind: Kind.FIELD,
+        name: {
+          kind: Kind.NAME,
+          value: '__typename',
+        },
+      },
+    ],
+  };
+}
+
+function stripExtensionFields(schema, operationAST) {
+  const typeInfo = new TypeInfo(schema);
+
+  return visit(
+    operationAST,
+    visitWithTypeInfo(typeInfo, {
+      [Kind.FIELD]: () => {
+        const fieldDef = typeInfo.getFieldDef();
+        if (
+          fieldDef.name.startsWith('__') ||
+          fieldDef.extensions['isExtensionField'] === true
+        ) {
+          return null;
+        }
+      },
+      [Kind.SELECTION_SET]: {
+        leave(node) {
+          const type = typeInfo.getParentType();
+          if (isAbstractType(type) || node.selections.length === 0)
+            return injectTypename(node);
+        },
+      },
+    }),
+  );
+}
+
+function removeUnusedVariables(documentAST) {
+  const seenVariables = Object.create(null);
+
+  visit(documentAST, {
+    [Kind.VARIABLE_DEFINITION]: () => false,
+    [Kind.VARIABLE]: (node) => {
+      seenVariables[node.name.value] = true;
+    },
+  });
+
+  return visit(documentAST, {
+    [Kind.VARIABLE_DEFINITION]: (node) => {
+      if (!seenVariables[node.variable.name.value]) {
+        return null;
+      }
+    },
+  });
+}

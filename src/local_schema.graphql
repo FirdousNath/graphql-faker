@@ -1,0 +1,7442 @@
+"""
+The @specifiedBy built-in directive is used within the type system definition
+language to provide a scalar specification URL for specifying the behavior of
+custom scalar types.
+"""
+directive @specifiedBy(url: String!) on SCALAR
+
+input AadhaarAuthInput {
+  number: String!
+  otp: Int
+}
+
+input AcceptCampaignInput {
+  campaignId: ID!
+  shortlistUserId: ID!
+  addressId: ID
+  signatureAssetId: ID
+  signatureAssetUrl: String
+  shortlistAnswers: [ShortlistAnswerInput!]
+}
+
+enum ActionCode {
+  LIKE
+  HELPFUL
+  REPORT
+  PIN
+  SPAM
+  SUPPORT
+}
+
+enum ActionViewType {
+  ARROW
+  CROSS
+  CTA
+  TEXT
+  DEFAULT
+}
+
+input AddressInput {
+  label: String
+  name: String
+  address1: String
+  address2: String
+  city: ID
+  state: ID
+  pincode: Int
+  landmark: String
+  phone: String
+  userId: ID
+}
+
+type AffiliateForm {
+  input: [AffiliateFormInput!]
+  submitText: String
+  headingText: String
+}
+
+type AffiliateFormInput {
+  inputType: AffiliateInputType!
+  fieldName: String!
+  defaultValue: String
+  inputList: [String]
+  hint: String
+  mandatory: Boolean!
+  errorMessage: String
+  staticIcon: Asset
+  activeIcon: Asset
+  erroredIcon: Asset
+  minValue: Float
+  maxValue: Float
+}
+
+enum AffiliateInputType {
+  INPUT_FIELD
+  LONG_INPUT_FIELD
+  DATE
+  TIME
+  MULTIPLE_CHECK_BOX
+  CHIPS
+  DROPDOWN
+  RANGE_PICKER
+}
+
+enum AffiliateOrderStatus {
+  INSUFFICIENT_FAILED
+  CONFIRMED
+  COMPLETED
+  PAYMENT_FAILED
+  FAILED
+  IN_PROGRESS
+}
+
+type AffiliatePartner {
+  partnerName: String!
+  officialUrl: String!
+  logo: Asset
+  affiliateUrl: String
+  labelImage: Asset
+  message: String!
+}
+
+type AffiliateProduct {
+  id: ID!
+  header: [AffiliateProductHeader]
+  topImage: Asset!
+  topTitle: String!
+  topDescription: String
+  topActionText: String!
+  title: String!
+  description: String
+  image: Asset!
+  actionText: String!
+  type: AffiliateType!
+  instructions: [InstructionDetails!]
+  postOrderInstructions: [InstructionDetails!]
+  purchasable: Boolean!
+  mrp: Float
+  couponCode: String
+  postOrderAction: String
+  form: AffiliateForm
+  sponsored: Boolean!
+  orderThresholdExhausted: Boolean!
+  outOfStock: Boolean!
+  streamId: ID
+}
+
+type AffiliateProductHeader {
+  icon: Asset
+  title: String
+}
+
+input AffiliateProductInput {
+  productType: ID!
+  partner: Partner!
+  affiliateUrl: String!
+}
+
+enum AffiliateType {
+  EXTERNAL_COUPON
+  EXTERNAL_LINK
+  EXTERNAL_SURVEY
+}
+
+type AgeBucket {
+  bucket: String!
+  perc: Float
+}
+
+type AgeDistribution {
+  gender: String
+  ageUpper: Int
+  ageLower: Int
+  count: Int
+}
+
+enum AlbumItemType {
+  IMAGE
+  VIDEO
+  COVER_IMAGE
+  VIDEO_TEASER
+}
+
+type AmbassadorsSection {
+  bgImage: Asset!
+  ambassadors: [Asset!]
+}
+
+type AmountBreakup {
+  rows: [AmountBreakupRow!]
+}
+
+type AmountBreakupRow {
+  key: String!
+  value: String!
+}
+
+type AppData {
+  email: String
+  phone: String
+  secondaryPhone: String
+  name: String
+  dob: String
+  gender: Gender
+  whatsappOptin: Boolean
+  contentCategories: [ContentCategory!]
+  languages: [String!]
+  location: [String!]
+  notificationToken: String
+  bio: String
+  memberId: String
+  referenceCode: String
+  ekycPending: Boolean
+  webEngageUserId: String
+}
+
+enum ApplicantStatus {
+  SHORTLISTED
+  APPLICANT
+  REJECTED
+  HIDDEN
+  BACKED_OUT
+}
+
+input ApplyCampaignInput {
+  campaignId: ID!
+  addressId: ID
+  languages: [String!]
+}
+
+type AppNotification {
+  id: ID!
+  campaignId: Int
+  title: String
+  description: String
+  iconUrl: Asset
+  imageUrl: Asset
+  notification_read: Boolean
+  hidden: Boolean
+  createdOn: String
+}
+
+type AppNotificationConnection {
+  edges: [AppNotificationEdge!]
+  pageInfo: PageInfo!
+}
+
+type AppNotificationEdge {
+  cursor: ID!
+  node: AppNotification!
+}
+
+type Asset {
+  id: ID!
+  url: String
+  width: Int
+  height: Int
+  duration: Int
+  assetType: AssetType
+  value: String
+  thumbnail: Asset
+}
+
+input AssetInput {
+  id: ID!
+  url: String
+  type: AssetType
+  thumbnail: AssetInput
+}
+
+enum AssetType {
+  IMAGE
+  VIDEO
+  LINK
+}
+
+input Attachment {
+  fileName: String!
+  assetId: ID!
+}
+
+type AttachmentEntry {
+  fileName: String!
+  asset: Asset
+}
+
+type AudienceBucketStats {
+  gender: String!
+  ageBuckets: [AgeBucket!]
+}
+
+type AudienceGrowth {
+  date: String
+  followers: Int
+}
+
+type AudienceInsights {
+  demographics: [LocationDemographic!]
+  ageGenderSplit: [AgeDistribution!]
+  authenticFollowersPercent: Float
+  authenticFollowers: Int
+  audienceGrowth: [AudienceGrowth!]
+}
+
+enum AuthMode {
+  ANONYMOUS
+  EMAIL
+  EMAIL_OTP
+  PHONE
+  GOOGLE
+  GOOGLE_OAUTH
+  YOUTBE
+  FB
+  INSTAGRAM
+  TRUECALLER
+  TRUECALLER_WEB
+  MX
+  PAYTM
+  BULBUL_SSO
+  MEMBER_INVITE
+  VERLOOP
+}
+
+type Background {
+  color: ColorGradient
+  asset: Asset
+}
+
+input BankAccAuthInput {
+  accountNumber: String!
+  ifscCode: String!
+}
+
+type BankAccount implements PaymentAccount {
+  id: ID!
+  type: PaymentAccountType!
+  enabled: Boolean
+  accountName: String!
+  accountNickName: String
+  ifscCode: String!
+  bankBranch: String
+  accountNumber: String!
+  accountType: String!
+}
+
+type BankBranch {
+  address: String!
+  bankName: String!
+  bankCode: String!
+  ifsc: String!
+  city: String!
+  state: String!
+  displayName: String!
+}
+
+type BankDetails {
+  accountNumber: String
+  accountHolderName: String
+  ifscCode: String
+  isVerified: Boolean!
+  bankName: String
+  pendingForApproval: Boolean!
+}
+
+type Banner {
+  id: ID!
+  image: Asset!
+  deeplink: String
+  actionLinks: [String!]
+  title: String
+  description: String
+  aspectRatio: Float
+  recoInfo: RecoInfo
+  actionText: String
+}
+
+input BannerInput {
+  image: AssetInput!
+  deeplink: String
+}
+
+type BannerWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  aspectRatio: Float
+  data: [Banner!]
+}
+
+type BaseResponse {
+  status: ResponseStatus
+  message: String!
+}
+
+type BigBossCampaign {
+  id: ID!
+  title: String!
+  subTitle: String
+  open: Boolean!
+  done: Boolean!
+}
+
+type BigBossCampaignLevel {
+  campaigns: [BigBossCampaign!]
+  reward: BigBossCampaignReward
+}
+
+type BigBossCampaignReward {
+  title: String!
+  messages: [String!]
+  ctaText: String!
+  type: BigBossCampaignRewardType!
+}
+
+enum BigBossCampaignRewardType {
+  VOUCHER
+  MONEY
+}
+
+type BigBossCampaigns {
+  levels: [BigBossCampaignLevel!]
+}
+
+type Brand {
+  id: ID!
+  logo: Asset
+  name: String!
+  category: Category
+  contentCategory: ContentCategory
+}
+
+type BrandAsset {
+  id: ID
+  sellerBrand: SellerBrand!
+  partnerBrand: PartnerBrand!
+  rank: Int
+  selected: Boolean
+}
+
+type BrandAssetConnection {
+  edges: [BrandAsset!]
+  pageInfo: PageInfo!
+}
+
+type Brief {
+  id: ID!
+  campaignId: Int
+  brandId: Int
+  platformId: Int
+  objective: String
+  samples: String
+  topic: String
+  hashtags: String
+  links: String
+  dos: String
+  donts: String
+  title: String
+  template: Boolean
+  whatToDo: String
+  fillPercent: Int
+  linkDataOutput: [LinkData!]
+  couponsOutput: [CouponData!]
+  caption: String
+  totalSlots: Int
+  paidByCoupon: Boolean
+  amount: Float
+  customInviteText: String
+  startTime: String
+  endTime: String
+  winklMigrated: Boolean
+  platformName: String
+  deliverables: [CampaignDeliverable!]
+  briefDeliverableCount: Int
+  minFollowers: Int
+  maxFollowers: Int
+  instantGratificationDefault: Boolean
+  campaignAcceptanceVoucher: Boolean
+  campaignCompletionVoucher: Boolean
+  campaignAcceptanceAmount: Int
+  campaignCompletionAmount: Int
+  campaignAcceptanceBrand: String
+  campaignCompletionBrand: String
+  campaignAcceptanceOffset: Int
+  campaignCompletionOffset: Int
+  acceptanceCouponName: String
+  completionCouponName: String
+  acceptanceCouponDescription: String
+  completionCouponDescription: String
+  acceptanceCouponRedemptionLink: String
+  completionCouponRedemptionLink: String
+  acceptanceCouponProductIds: [String!]
+  completionCouponProductIds: [String!]
+  acceptanceCouponPreorderAllowed: Boolean
+  completionCouponPreorderAllowed: Boolean
+  acceptanceVoucherActiveFrom: String
+  completionVoucherActiveFrom: String
+  acceptanceVoucherActiveTo: String
+  completionVoucherActiveTo: String
+  campaignAcceptanceDiscountValue: Int
+  campaignCompletionDiscountValue: Int
+  campaignAcceptanceProductSpecificDiscount: Boolean
+  campaignCompletionProductSpecificDiscount: Boolean
+  uniqueId: String
+  createdOn: String
+  campaignAcceptanceVoucherTnc: [String!]
+  campaignCompletionVoucherTnc: [String!]
+  reimbursementAmount: Float
+  couponDistributionEnabled: Boolean
+  acceptanceCouponDistributionEnabled: Boolean
+  completionCouponDistributionEnabled: Boolean
+  filledSlots: Int
+  viewAmountConfigs: [ViewAmountConfig!]
+  remainingOnAcceptAutoAssignVoucher: Int
+  remainingOnCompleteAutoAssignVoucher: Int
+}
+
+type BriefCard {
+  heading: String!
+  description: String
+  cardType: BriefCardType!
+  items: [BriefCardItem!]
+  sampleCreativeText: String
+  sampleCreativeCtaText: String
+  sampleCreatives: [Asset!]
+}
+
+type BriefCardItem {
+  itemType: BriefCardItemType!
+  asset: Asset
+  ctaText: String
+  copyText: [BriefCardItemTextCopy!]
+}
+
+type BriefCardItemTextCopy {
+  title: String
+  subText: String
+  copyText: String
+  note: String
+  htmlText: String
+  disabled: Boolean!
+}
+
+enum BriefCardItemType {
+  SHARE
+  INSTRUCTIONAL
+  COPY
+  COUPON
+}
+
+enum BriefCardType {
+  TASK
+  COUPON
+  FINAL_POST
+}
+
+type BriefStat {
+  pendingReviewContentCount: Int!
+  underReviewContentCount: Int!
+  approvedReviewContentCount: Int!
+  rejectedReviewContentCount: Int!
+  totalReviewContentNeeded: Int!
+  pendingFinalPostCount: Int!
+  underReviewFinalPostCount: Int!
+  approvedFinalPostCount: Int!
+  rejectedFinalPostCount: Int!
+  totalFinalPostNeeded: Int!
+}
+
+input BroadcastUserData {
+  shortlistedUserId: Int!
+  campaignProfileId: Int!
+}
+
+type Button {
+  text: Text
+  color: ColorGradient
+  clickable: Boolean!
+  visible: Boolean
+}
+
+type BuyerInfo {
+  name: String!
+  date: String!
+  status: OrderStatus!
+}
+
+type Campaign {
+  id: ID!
+  title: String
+  subTitle: String
+  description: String
+  objective: String
+  minFollowers: Int
+  maxFollowers: Int
+  image: Asset
+  video: Asset
+  videoThumbnail: Asset
+  startTime: Int
+  endTime: Int
+  applicationOpen: Boolean!
+  brandId: ID
+  brandName: String
+  brandLogo: Asset
+  platformId: ID
+  postPlatformName: String
+  postPlatformLogo: Asset
+  requireAddress: Boolean!
+  supportEmailId: String
+  paymentType: String
+  paymentDelay: Int!
+  instantPayoutDelay: Int
+  notes: [String!]
+  instantPayout: Boolean!
+  paymentMessage: String
+  instantPayoutMessage: String
+  instantPayoutFeePercentage: Float!
+  instantPayoutNotes: [String!]
+  showParticipantsOnApp: Boolean!
+  showPostsOnApp: Boolean!
+  languages: [String!]
+  genders: [String!]
+  creatorProgram: Boolean!
+  creatorProgramTag: String
+  podType: String
+  requirements: [String!]
+  categories: [String!]
+  locations: [String!]
+  minAge: Int
+  maxAge: Int
+  publicProfileMandatory: Boolean!
+  backedOut: Boolean!
+  backedOutReason: String
+  unreadMessageCount: Int!
+  campaignType: String
+  isReferralCampaign: Boolean!
+  allowAutoShortlisting: Boolean!
+  deepLink: String
+  inviteLink: String
+  statusDisplayText: String
+  nextStep1: String
+  nextStep2: String
+  nextStepColorCode: String
+  amount: Int
+  voucherAmount: Int
+  tentativePayoutText: String
+  formLink: String
+  followersRangeMessage: String
+  rewardLadderCode: String
+  contentCreationProgram: String
+}
+
+enum CampaignAnalyticsFlow {
+  OLD
+  NEW
+}
+
+type CampaignApplicationCriteria {
+  criteriaIcon: Asset!
+  criteriaText: String!
+  criteriaMatch: Boolean!
+}
+
+type CampaignAudienceLocationStats {
+  LocationGroupStats: [LocationGroupStats!]
+}
+
+type CampaignAudienceStats {
+  audienceBucketStats: [AudienceBucketStats!]
+}
+
+enum CampaignBrandUserAction {
+  ADD
+  REMOVE
+}
+
+type CampaignBrief {
+  id: ID!
+  description: String
+  briefCards: [BriefCard!]
+  title: String!
+  platformName: String
+  platformLogo: Asset
+  objective: String
+  sample: String
+  sampleUrl: String
+  topic: String
+  hashtags: [String!]
+  links: String
+  pointToRemember: String
+  dos: String
+  donts: String
+  whatToDo: String
+  reviewPost: Boolean!
+  linkData: [DeliverableLink!]
+  couponData: [DeliverableCoupon!]
+  totalSlots: Int!
+  filledSlots: Int!
+  viewPayoutSlabs: ViewPayoutSlabs
+  caption: String
+  customInviteText: String
+  useDeliverablesInline: Boolean!
+  briefStat: BriefStat
+  deliverables: [CampaignDeliverable!]
+  ctaText: String
+  nextStepLevel: DeliverableSubmissionLevel
+  campaignAcceptanceVoucher: Boolean!
+  campaignCompletionVoucher: Boolean!
+  campaignAcceptanceVoucherViewed: Boolean!
+  campaignCompletionVoucherViewed: Boolean!
+  acceptanceVoucherGenerated: Boolean!
+  completionVoucherGenerated: Boolean!
+  voucherAmount: Int
+  reimbursementAmount: Int
+  acceptanceVoucherAmount: Int
+  completionVoucherAmount: Int
+  acceptanceVoucherCode: String
+  completionVoucherCode: String
+  acceptanceVoucherExpiresOn: Int
+  completionVoucherExpiresOn: Int
+  campaignCompletionVoucherTnc: [String!]
+  campaignAcceptanceVoucherTnc: [String!]
+  fewThingsToNote: String
+  acceptanceVoucher: [CampaignVoucher!]
+  completionVoucher: [CampaignVoucher!]
+}
+
+type CampaignBriefShortlist {
+  id: ID!
+  briefId: ID
+  campaignId: ID
+  shortlistId: ID
+  briefSentTime: Int
+  sendBrief: Boolean!
+  brief: CampaignBrief
+  shortlist: CampaignShortlist!
+  isSummaryShortlist: Boolean!
+  active: Boolean!
+  reviewContent: Boolean!
+  noOfDeliverables: Int!
+  userCountForShortlist: Int
+  seenCount: Int
+  acceptedCount: Int
+  allUserCount: Int
+  amount: Float
+  resolved: Boolean!
+  unreadMessageCount: Int
+  escalatedMessageCount: Int
+  inviteExpireIn: Int
+  notifications: [CampaignShortlistNotification!]
+}
+
+input CampaignBriefShortlistInput {
+  campaignId: ID!
+  briefId: ID
+  shortlistId: ID!
+}
+
+input CampaignBriefUpdateNotificationInput {
+  campaignId: ID!
+  brief: ID!
+}
+
+type CampaignCategory {
+  id: ID!
+  name: String!
+  icon: Asset
+  tags: [String!]
+}
+
+type CampaignCategoryConnection {
+  pageInfo: PageInfo
+  edges: [CampaignCategoryEdge!]
+}
+
+type CampaignCategoryEdge {
+  cursor: String!
+  node: CampaignCategory!
+}
+
+type CampaignChallenge {
+  id: ID!
+  source: String!
+  title: String
+  deepLink: String
+  mainImage: Asset!
+  status: String
+  statusLabel: String
+  tagLabel: String
+  newLabel: String
+  numberOfTasks: Int!
+  tentativePayoutText: String
+  ctaText: String
+  filledSlots: Int
+  totalSlots: Int
+}
+
+type CampaignChallengeWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  aspectRatio: Float
+  data: CampaignChallenge!
+}
+
+type CampaignCount {
+  ongoing: Int!
+  userChallengeInfo: UserChallengeInfo
+}
+
+type CampaignDeliverable {
+  id: ID!
+  campaignPostFormatID: ID!
+  format: String!
+  platform: String
+  cpfDescription: String
+  title: String
+  formatName: String
+  startTime: Int!
+  endTime: Int!
+  whatToDo: String
+  hashtags: [String!]
+  couponData: [DeliverableCoupon!]
+  linkData: [DeliverableLink!]
+  sample: String
+  sampleUrl: String
+  ctaText: String!
+  nextStepLevel: DeliverableSubmissionLevel
+  reviewContentRequired: Boolean!
+  finalPost: DeliverableSubmission
+  rejectedFinalPosts: [DeliverableSubmission!]
+  reviewContent: DeliverableSubmission
+  rejectedReviewContents: [DeliverableSubmission!]
+  insightsRequired: Boolean!
+  insights: DeliverableSubmission
+  taskCards: [TaskCard!]
+}
+
+type campaignDeliverableLinkCountStatsEntry {
+  deliverableId: Int
+  totalLinkCount: Int
+  remainingLinkCount: Int
+  linkType: String
+}
+
+type campaignDeliverableManualLinkCountStatsResponse {
+  status: ResponseStatus
+  countStatsEntry: campaignDeliverableLinkCountStatsEntry
+}
+
+type campaignDeliverableMaxEndTimeResponse {
+  status: ResponseStatus
+  campaignDeliverableMaxEndTime: Int
+}
+
+type CampaignDeliverables {
+  pendingReviewContentCount: Int!
+  underReviewContentCount: Int!
+  approvedReviewContentCount: Int!
+  rejectedReviewContentCount: Int!
+  pendingFinalPostCount: Int!
+  underReviewFinalPostCount: Int!
+  approvedFinalPostCount: Int!
+  rejectedFinalPostCount: Int!
+  deliverables: [CampaignDeliverable!]
+}
+
+enum CampaignGroupType {
+  REWARD_LADDER
+  REWARD_LADDER_GROUP
+  CAMPAIGNS
+}
+
+type CampaignHashtag {
+  hashtag: String!
+  count: Int
+}
+
+type CampaignHashtags {
+  hashtags: [CampaignHashtag!]
+}
+
+type CampaignInfluencerCompact {
+  handle: String
+  name: String
+  followers: Int
+  reach: Int
+  engagementRate: Float
+  profilePic: String
+  link: String
+  cost: Int
+  impressions: Int
+  cpm: Float
+  views: Int
+  cpe: Float
+  cpc: Float
+  cpr: Float
+  ctr: Float
+  followersPerc: Float
+  likes: Int
+  comments: Int
+  linkClicks: Int
+  orders: Int
+  overallOrders: Int
+  deliveredOrders: Int
+  leaderboardOverallOrders: Int
+  leaderboardDeliveredOrders: Int
+  leaderboardOrders: Int
+  shares: Int
+  saves: Int
+  stickerTaps: Int
+  postWiseCounts: Map
+}
+
+type CampaignInfluencerCompactEdge {
+  node: CampaignInfluencerCompact!
+  cursor: String!
+}
+
+type CampaignInfluencerConnection {
+  pageInfo: PageInfo
+  edges: [CampaignInfluencerCompactEdge!]
+}
+
+type CampaignInfo {
+  id: ID!
+  newMessagesCount: Int
+  totalSlotsAvailable: Int
+  campaign: Campaign!
+  nextSteps: [CampaignNextStep!]
+  amount: Float
+  instantPayoutAmount: Float
+  customText: String
+  userPayment: CampaignUserPayment
+  chatDisabled: Boolean!
+  updates: [CampaignUpdate!]
+  tnc: [String!]
+  paymentTexts: [String!]
+  applicationCriteria: [CampaignApplicationCriteria!]
+  languageMatch: Boolean!
+  genderMatch: Boolean!
+  categoryMatch: Boolean!
+  followersMatch: Boolean!
+  languageErrorMessage: String
+  genderErrorMessage: String
+  categoryErrorMessage: String
+  followersErrorMessage: String
+  followersRangeMessage: String
+  userStatus: CampaignUserStatus!
+  instagramAuthenticationRequired: Boolean!
+  instagramInsightsAccessToken: String
+  warningHeader: String
+  warningDescription: String
+  warningCtaText: String
+  warningNextAction: CampaignNextAction
+  campaignNextAction: CampaignNextAction!
+  profileIncompleteSections: [HostProfileSection!]
+  ctaText: String!
+  ctaSubText1: String
+  ctaSubText2: String
+  journeyItems: [CampaignJourneyItem!]
+  ctaBottomSheetIconUrl: String
+  ctaBottomSheetTitle: String
+  ctaBottomSheetText: String
+  ctaBottomSheetNote: String
+  ctaBottomSheetActionText: String
+  ctaBottomSheetAction: CampaignNextAction
+  unfilledProfileItem: String
+  unfilledProfileMessage: String
+  bankDetailsCompleted: Boolean!
+  shortlistQuestions: [CampaignShortlistQuestion!]
+  brief: CampaignBrief
+  noRequirements: Boolean!
+  shortlistUserId: ID
+  deliverablesAggregated: DeliverableFormatsAggregated
+  showParticipantsOnApp: Boolean!
+  showPostsOnApp: Boolean!
+  onApplyTitle: String
+  onApplySubTitle: String
+  onApplyNotes: String
+  userChallengeInfo: UserChallengeInfo
+}
+
+type CampaignInitiatePayoutResponse {
+  status: ResponseStatus!
+  title: String!
+  messages: [String!]
+}
+
+input CampaignInput {
+  name: String
+  sendNotification: Boolean
+  brandId: Int
+  platformId: Int
+  startTime: Int
+  endTime: Int
+  instantPayout: Boolean
+  invoiceEntityID: ID
+  paymentType: CampaignPaymentType
+  budget: Int
+  externalBudgetApplicable: Boolean
+  externalBudget: Int
+  campaignType: String
+  autoInstantPayout: Boolean
+  videoAsset: AssetInput
+  videoThumbnailAsset: AssetInput
+  description: String!
+  objective: String
+  allowApplicants: Boolean
+  imageAsset: AssetInput
+  paymentDelay: Int
+  languages: [String!]
+  minFollowers: Int!
+  maxFollowers: Int!
+  locations: [String!]
+  minAge: Int
+  maxAge: Int
+  publicProfileMandatory: Boolean
+  requireAddress: Boolean
+  supportEmailId: String
+  summaryShortlistAvailable: Boolean
+  genders: [String!]
+  productsToDeliver: Boolean
+  creatorProgram: Boolean
+  creatorProgramTag: String
+  podType: String
+  instantPayoutFeePercentage: Float
+  tentativePayoutText: String
+  allowAutoShortlisting: Boolean
+  showParticipantsOnApp: Boolean
+  showPostsOnApp: Boolean
+  formLink: String
+  onApplyTitle: String
+  onApplySubtitle: String
+  onApplyNotes: String
+  rewardLadderCode: String
+  requirements: [String!]
+  categoryTagIds: [Int!]
+  instagramAuthenticationRequired: Boolean
+  campaignChallengeImage: AssetInput
+  isReferralCampaign: Boolean
+  contentCreationProgram: String
+}
+
+type CampaignInvoice {
+  id: ID!
+  title: String
+  subTitle: String
+  asset: Asset
+  totalTdsAmount: Float
+  cgstValue: Float
+  sgstValue: Float
+  cgst: Float
+  sgst: Float
+  igstValue: Float
+  igst: Float
+  grandTotal: Float
+  subTotal: Float
+  instantPayoutAmount: Float
+  instantPayoutPercent: Float
+  gstin: String
+  pan: String
+  bankAccountNumber: String
+  bankAccountBeneficiaryName: String
+  bankIfscCode: String
+  bankName: String
+  clientGstin: String
+  campaignId: ID!
+  campaignCompleted: Boolean!
+  invoicePaymentStatus: InvoicePaymentStatus!
+}
+
+type CampaignInvoiceConnection {
+  pageInfo: PageInfo
+  edges: [CampaignInvoiceEdge!]
+}
+
+type CampaignInvoiceEdge {
+  edge: CampaignInvoice!
+  cursor: String!
+}
+
+type CampaignJourneyItem {
+  name: String!
+  startDate: String
+  completionDate: String
+  status: String
+  description: String
+}
+
+type CampaignKeyword {
+  keyword: String!
+  count: Int
+}
+
+type CampaignKeywords {
+  keywords: [CampaignKeyword!]
+}
+
+type CampaignMetric {
+  id: ID!
+  name: String!
+  status: Boolean!
+}
+
+input CampaignMetricInput {
+  id: ID!
+  status: Boolean!
+}
+
+type CampaignMetrics {
+  campaignMetrics: [CampaignMetric!]
+}
+
+input CampaignMetricsVisibilityUpdateInput {
+  campaignMetrics: [CampaignMetricInput!]
+}
+
+enum CampaignNextAction {
+  VIEW_BRIEF
+  VIEW_ACCEPTANCE_COUPON
+  VOID
+  LOGIN
+  COMPLETE_PROFILE
+  APPLY
+  APPLIED
+  ACCEPT
+  SUBMIT_CONTENT
+  SUBMIT_LINK
+  COMPLETE_EKYC
+  PAYMENT
+  INSIGHT
+  SHARE
+  RE_SUBMIT
+  AUTHENTICATE_INSTAGRAM
+  REFRESH_SOCIAL_ACCOUNT
+  EXPLORE_COLLABORATIONS
+}
+
+type CampaignNextStep {
+  title: String!
+  subTitle: String!
+  done: Boolean!
+  disabled: Boolean!
+  actionCode: CampaignNextAction!
+}
+
+type CampaignPaymentMessage {
+  paymentMessages: [String!]
+  amount: Float
+  infoTitle: String
+  infoSubtitle: String
+  utr: String
+}
+
+enum CampaignPaymentMode {
+  INSTANT
+  REGULAR
+}
+
+enum CampaignPaymentStatus {
+  OPEN
+  PENDING
+  INITIATED
+  PROCESSED
+  FAILED
+}
+
+enum CampaignPaymentType {
+  PAID
+  BARTER
+}
+
+type CampaignPlan {
+  id: ID!
+  uniqueId: String!
+  firstTime: Boolean!
+  gender: [String!]
+  location: [String!]
+  language: [String!]
+  ageLl: Int
+  ageUl: Int
+  name: String
+  planName: String
+  phone: String
+  email: String
+  estBudget: Float
+  budget: Float
+  website: String
+  objective: String
+  objectiveLink: String
+  avgOrderValue: Float
+  returnOnAdSpent: Float
+  companyName: String
+  executionDate: String
+  nano: Int
+  micro: Int
+  macro: Int
+  storyCount: Int
+  reelCount: Int
+  imageCount: Int
+  videoPostCount: Int
+  carouselCount: Int
+  categoryIds: [Int!]
+  deliverableEntryList: [CampaignPlanDeliverable!]
+  categoryEntryList: [CampaignPlanCategory!]
+  estReach: Float
+  engRate: Float
+  uniqueViews: Float
+  traffic: Float
+  orders: Float
+  adSource: String
+  offerings: String
+  noOfContentPieces: Float
+}
+
+type CampaignPlanCategory {
+  campaignPlanId: Int
+  categoryTagId: Int
+}
+
+type CampaignPlanDeliverable {
+  id: ID!
+  campaignPlanId: Int
+  campaignPostFormatId: Int
+  postType: String
+  asset: Asset
+}
+
+input CampaignPlanDeliverableInput {
+  id: ID
+  campaignPlanId: Int
+  campaignPostFormatId: Int
+  postType: String
+  asset: AssetInput
+}
+
+input CampaignPlanInput {
+  id: ID
+  firstTime: Boolean
+  gender: [String!]
+  location: [String!]
+  language: [String!]
+  ageLl: Int
+  ageUl: Int
+  name: String
+  planName: String
+  phone: String
+  email: String
+  estBudget: Float
+  budget: Float
+  website: String
+  objectiveLink: String
+  objective: String
+  avgOrderValue: Float
+  returnOnAdSpent: Float
+  companyName: String
+  executionDate: String
+  nano: Int
+  micro: Int
+  macro: Int
+  storyCount: Int
+  reelCount: Int
+  imageCount: Int
+  videoPostCount: Int
+  carouselCount: Int
+  categoryIds: [Int!]
+  adSource: String
+  offerings: String
+}
+
+type CampaignPlatform {
+  id: ID!
+  platform: String
+  logoAsset: Asset
+  visible: Boolean!
+  campaignPostFormats: [CampaignPostFormat!]
+}
+
+type CampaignPlatformConnection {
+  pageInfo: PageInfo
+  edges: [CampaignPlatformEdge!]
+}
+
+type CampaignPlatformEdge {
+  cursor: String!
+  node: CampaignPlatform!
+}
+
+type CampaignPost {
+  engagementRate: Float
+  reach: Int!
+  likes: Int
+  comments: Int
+  views: Int
+  stickerTaps: Int
+  swipeUps: Int
+  postType: CampaignPostType!
+  thumbnail: String
+  link: String
+  publishTime: String
+  caption: String
+  impressions: Int
+  saves: Int
+  shares: Int
+  plays: Int
+  linkClicks: Int
+  shortCode: String
+  handle: String
+  name: String
+  followers: Int
+  profileImage: Asset
+}
+
+type CampaignPostConnection {
+  pageInfo: PageInfo
+  edges: [CampaignPostEdge!]
+}
+
+type CampaignPostEdge {
+  edge: CampaignPost!
+  cursor: String!
+}
+
+type CampaignPostFormat {
+  id: ID!
+  platformId: String
+  format: String
+  platformName: String
+  code: String
+  winklMigrated: Boolean!
+  reviewContentEnabled: Boolean!
+  campaignType: String
+  inputs: [CampaignPostFormatInput!]
+}
+
+type CampaignPostFormatInput {
+  id: ID!
+  name: String
+  level: DeliverableSubmissionLevel
+  code: CampaignPostFormatInputCode
+  multiple: Boolean!
+  dataType: DeliverableInputType
+  mandatory: Boolean!
+  subText1: String
+  subText2: String
+}
+
+enum CampaignPostFormatInputCode {
+  AZ_LINK
+  CAPTION
+  CAROUSEL
+  COMMENTS
+  DESCRIPTION
+  IG_LINK
+  IMAGE
+  IMPRESSIONS
+  LIKES
+  LINK
+  MEDIA
+  REACH
+  SAVES
+  SCREENSHOT
+  SHARES
+  TITLE
+  VIDEO
+  VIEWS
+  YT_LINK
+}
+
+input CampaignPostStatInput {
+  views: Int
+  likes: Int
+  commentsCount: Int
+  impressions: Int
+  savedCount: Int
+  sharedCount: Int
+  playCount: Int
+  reach: Int
+  linkClicksCount: Int
+  stickerTapsCount: Int
+  swipeUpsCount: Int
+  isBookmarked: Int
+  timestamp: String
+}
+
+enum CampaignPostType {
+  STORY
+  REEL
+  VIDEO
+  IMAGE
+  CAROUSEL
+}
+
+type CampaignShortlist {
+  id: ID!
+  name: String!
+  usersCount: Int
+  totalReach: Int
+  brandId: ID
+  platformId: ID
+  campaignId: ID
+  avgEngagement: Int
+  minFollowers: Int
+  maxFollowers: Int
+  shared: Boolean!
+  isSummaryShortlist: Boolean!
+  isCollection: Boolean!
+  collectionCode: String
+  instantGratification: Boolean!
+  createdAt: Int!
+  seen: Int
+  accepted: Int
+  briefSentTime: Int
+  briefId: ID
+}
+
+enum CampaignShortlistAction {
+  LINK
+  UNLINK
+}
+
+enum CampaignShortlistedStatusFlag {
+  SHORTLISTED
+  ACCEPTED
+  SEEN
+  CONTENTS_UNDER_REVIEW
+  ALL_CONTENTS_APPROVED
+  NO_CONTENT_SUBMITTED
+  POSTS_UNDER_REVIEW
+  ALL_POSTS_APPROVED
+  NO_POST_SUBMITTED
+  NOT_COMPLETED_POST
+  NOT_COMPLETED_CONTENT
+}
+
+type CampaignShortlistedUser {
+  id: ID!
+  shortlistId: ID!
+  campaignProfileId: ID
+  campaignId: ID
+  briefId: ID
+  influencer: Influencer
+  amount: Float
+  reimbursementAmount: Float
+  customText: String
+  deliveryStatus: String
+  deliveryVerified: Boolean!
+  accepted: Boolean!
+  seen: Boolean!
+  rejected: Boolean!
+  createdOn: Int
+  briefSentTime: Int
+  acceptedAt: Int
+  timeToAccept: Int
+  platformId: ID
+  postsCreated: Int
+  postsAssigned: Int
+  postsUnderVerification: Int
+  postsRejected: Int
+  contentAssigned: Int
+  contentApproved: Int
+  contentUnderVerification: Int
+  unreadMessageCount: Int
+  escalatedMessageCount: Int
+  ucaFeedBack: String
+  userStatus: String
+}
+
+type CampaignShortlistedUserConnection {
+  pageInfo: PageInfo
+  campaign: CMCampaign
+  edges: [CampaignShortlistedUserEdge!]
+}
+
+type CampaignShortlistedUserEdge {
+  cursor: String!
+  node: CampaignShortlistedUser!
+}
+
+input CampaignShortlistedUserFilter {
+  searchPhrase: String
+  shortlistId: ID!
+  level: DeliverableSubmissionLevel
+  flag: CampaignShortlistedStatusFlag
+  screen: CMScreenForShortlistedUser!
+  before: String
+  after: String
+  size: Int
+}
+
+type CampaignShortlistEnriched {
+  campaign: CMCampaign
+  campaignBriefShortlist: [CampaignBriefShortlist!]
+}
+
+type CampaignShortlistFilterCount {
+  contentsUnderReview: Int!
+  allContentApproved: Int!
+  noContentSubmitted: Int!
+  postsUnderReview: Int!
+  allPostsApproved: Int!
+  noPostsApproved: Int!
+  noPostSubmitted: Int!
+  allUsers: Int!
+  notCompletedPostCount: Int!
+  notCompletedContentCount: Int!
+}
+
+input CampaignShortlistFlags {
+  messageData: Boolean!
+  shortlistNotifications: Boolean!
+  counts: Boolean!
+}
+
+input CampaignShortlistInput {
+  name: String
+}
+
+type CampaignShortlistNotification {
+  title: String
+  description: String
+  userIds: [ID!]
+}
+
+type CampaignShortlistQuestion {
+  id: ID!
+  question: String!
+  answerType: String
+  hintText: String
+  isRequired: Boolean!
+}
+
+input CampaignShortlistReminderNotificationInput {
+  campaignId: ID!
+  shortlistId: ID!
+  title: String
+  description: String
+  activity: String
+  externalLink: String
+  inviteType: CampaignShortlistReminderNotificationInviteType!
+}
+
+enum CampaignShortlistReminderNotificationInviteType {
+  ALL_NOTIFICATION_V3
+  SHORTLISTED_NOTIFICATION_V3
+  ACCEPTED_NOTIFICATION_V3
+  SEEN_NOTIFICATION_V3
+  CONTENTS_UNDER_REVIEW_SU_COUNT_FOR_NOTIFICATION_V3
+  POSTS_UNDER_REVIEW_SU_COUNT_FOR_NOTIFICATION_V3
+  ALL_CONTENTS_APPROVED_COUNT_FOR_NOTIFICATION_V3
+  NO_CONTENT_SUBMITTED_COUNT_FOR_NOTIFICATION_V3
+  ALL_POSTS_APPROVED_COUNT_FOR_NOTIFICATION_V3
+  NO_POSTS_SUBMITTED_COUNT_FOR_NOTIFICATION_V3
+  NOT_COMPLETED_POST_COUNT_FOR_NOTIFICATION_V3
+  NOT_COMPLETED_CONTENT_COUNT_FOR_NOTIFICATION_V3
+}
+
+enum CampaignShortlistShareAction {
+  SHARE
+  RESTRICT
+}
+
+enum CampaignShortlistStatus {
+  ACCEPTED
+}
+
+type CampaignStats {
+  id: ID!
+  profiles: Int
+  hashtagReach: Int
+  reach: Int
+  posts: Int
+  views: Int
+  likes: Int
+  comments: Int
+  swipeUps: Int
+  stickerTaps: Int
+  shares: Int
+  saves: Int
+  mentions: Int
+  engagement: Int
+  engagementRate: Float
+  postsCounts: PostsCounts
+  weeklyStats: [CampaignWeeklyStat!]
+  budget: Int
+  followers: Int
+  impressions: Int
+  impressionsPerc: Float
+  reachPerc: Float
+  ctr: Float
+  viewsPerc: Float
+  cpc: Float
+  cpe: Float
+  cpv: Float
+  cpm: Float
+  cpr: Float
+  linkClicks: Int
+  orders: Int
+  overallOrders: Int
+  deliveredOrders: Int
+  leaderboardOverallOrders: Int
+  leaderboardDeliveredOrders: Int
+  leaderboardOrders: Int
+}
+
+type CampaignStatus {
+  id: ID!
+  name: String
+  description: String
+  startDate: String
+  endHere: Boolean
+  completionDate: String
+  status: String
+}
+
+type CampaignUpdate {
+  id: ID!
+  title: String
+  text: String
+  image: Asset
+  read: Boolean!
+  sendTime: String
+}
+
+type CampaignUser {
+  shortlistUserId: ID!
+  shortlistId: ID!
+  campaignId: ID!
+  userAccountId: ID
+  isBlacklisted: Boolean
+  name: String
+  email: String
+  phone: String
+  briefId: ID!
+  briefName: String
+  acceptanceVoucherEnabled: Boolean!
+  completionVoucherEnabled: Boolean!
+  voucherDistributionEnabled: Boolean!
+  acceptanceTime: String
+  completionTime: String
+  acceptanceVoucherScheduledTime: String
+  completionVoucherScheduledTime: String
+  paidAmount: Float
+  totalAmount: Float
+  reimbursementAmount: Float
+  externalCost: Float
+  amountHold: Float
+  reimbursementAmountHold: Float
+  paidReimbursementAmount: Float
+  invoiceGenerated: Boolean!
+  onGCC: Boolean!
+  postsAssigned: Int!
+  postsCreated: Int!
+  rating: Int
+  comment: String
+  latestInvoice: CampaignUserInvoice
+  invoices: [CampaignUserInvoice!]
+  invoiceFailureReason: String
+  acceptanceVoucher: PayoutVoucher
+  completionVoucher: PayoutVoucher
+  editableByCM: Boolean!
+}
+
+type CampaignUserConnection {
+  pageInfo: PageInfo
+  edges: [CampaignUser!]
+}
+
+type CampaignUserInvoice {
+  id: ID!
+  status: CampaignUserInvoiceStatus
+  url: String
+  plixxoPaymentId: ID
+  paymentType: CampaignPaymentMode!
+  sentToFinance: Boolean!
+  sentToFinanceTime: String
+  amount: Float
+  reimbursementAmount: Float
+}
+
+enum CampaignUserInvoiceStatus {
+  FAILED
+  PENDING
+  PROCESSED
+  INITIATED
+  CANCELLED
+}
+
+type CampaignUserPayment {
+  amount: Float
+  amountBreakup: AmountBreakup
+  initialAmount: Float
+  deduction: Float
+  invoice: CampaignInvoice
+  invoices: [CampaignInvoice!]
+  mode: CampaignPaymentMode
+  paymentStatus: CampaignPaymentStatus!
+  paymentMessage: String
+  paymentMessages: [String!]
+  paymentMessageList: [CampaignPaymentMessage!]
+  emptyPaymentScreen: EmptyPaymentScreen
+  utr: String
+  initiatedOn: Int
+  processedOn: Int
+  infoTitle: String
+  infoSubtitle: String
+}
+
+enum CampaignUserStatus {
+  NOT_APPLIED
+  APPLIED
+  SHORTLISTED
+  NOT_SHORTLISTED
+  INVITE_EXPIRED
+  ACCEPTED
+  PAYMENT_PROCESSED
+  INVOICE_GENERATED
+}
+
+type CampaignVoucher {
+  title: String!
+  code: String!
+  whatToDo: String
+  redeemLink: String
+  redeemCta: String
+  image: Asset
+  subTitle: String
+  label: String
+  expiresOn: Int
+  expiryString: String
+  campaignId: ID
+  expired: Boolean
+}
+
+type CampaignVoucherConnection {
+  pageInfo: PageInfo
+  banners: [Banner!]
+  edges: [CampaignVoucherEdge!]
+}
+
+type CampaignVoucherEdge {
+  edge: CampaignVoucher!
+  cursor: String!
+}
+
+enum CampaignVoucherType {
+  ACCEPTANCE_VOUCHER
+  COMPLETION_VOUCHER
+}
+
+type CampaignWeeklyStat {
+  postsCount: Int
+  viewsCount: Int
+  likesCount: Int
+  commentsCount: Int
+  profilesCount: Int
+  engagementCount: Int
+  reachCount: Int
+  createdAt: String
+}
+
+type CampaignWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  aspectRatio: Float
+  data: Campaign!
+}
+
+enum CancellationReason {
+  MISC
+}
+
+type Cart {
+  id: ID!
+  cartItemGroups: [CartItemGroup!]
+  checksum: String!
+  checkoutType: CheckoutType!
+  totalItems: Int!
+  chargeableAmount: Float!
+  message: String
+  paymentOptions: [PaymentOptionGroup!]!
+  paymentOptionsHeader: String
+}
+
+type CartItem {
+  id: ID!
+  quantity: Int!
+  oos: Boolean!
+  sku: Sku!
+}
+
+type CartItemGroup {
+  groupId: ID!
+  cartItems: [CartItem!]
+}
+
+input CartItemInput {
+  productId: Int!
+  skuId: Int!
+  catalogId: Int
+  postId: Int
+  listingId: Int
+  quantity: Int!
+  removeFromWishlist: Boolean
+}
+
+type Catalog {
+  id: ID!
+  catalogItems: [CatalogItem!]
+  productType: String!
+  type: String!
+  itemType: String
+  title: String
+}
+
+type CatalogItem {
+  referenceId: ID!
+  rank: Int!
+  referenceNode: CatalogItemNode
+}
+
+union CatalogItemNode = Product | DigitalProduct
+
+type Category {
+  id: ID!
+  name: String!
+  logo: Asset
+}
+
+type ChallengeInfo {
+  id: ID!
+  code: String
+  label: String!
+}
+
+input ChallengeInfoInput {
+  id: ID!
+  code: String
+  label: String!
+}
+
+input ChangeBetweenShortlistsInput {
+  campaignId: ID!
+  currentShortlistId: ID!
+  changeToShortlistId: ID!
+  shortlistedUserId: ID!
+}
+
+input ChangePasswordRequest {
+  currentPassword: String!
+  newPassword: String!
+}
+
+enum CheckoutType {
+  CART
+}
+
+type ChipItem {
+  text: String!
+  actionLink: String
+  count: Int!
+  selected: Boolean!
+  variant: String
+}
+
+type ChipItemWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  data: [ChipItem!]
+}
+
+type City {
+  id: Int!
+  name: String
+  state: State
+}
+
+type Client {
+  id: ID!
+  appName: String!
+  appType: String!
+  enabled: Boolean!
+}
+
+type CMCampaign {
+  id: ID!
+  createdOn: Int
+  lastModifiedOn: Int
+  name: String!
+  stepCompleteFlag: CMCampaignStepCompleteFlag
+  status: String!
+  saasCollectionId: ID
+  saasCampaignCollectionId: Int
+  assignedBrandUserIds: [ID!]
+  unreadMessageCount: Int
+  escalatedMessageCount: Int
+  brandId: ID
+  partner: PartnerEntry
+  platformId: ID
+  platformName: String
+  platformLogo: String
+  campaignPlanUrl: String
+  analyticsShareId: String
+  campaignAnalyticsFlow: CampaignAnalyticsFlow
+  vidoolyCampaignId: ID
+  startTime: Int
+  endTime: Int
+  deeplink: String
+  active: Boolean!
+  winklMigrated: Boolean!
+  instantPayout: Boolean!
+  invoiceEntity: InvoiceEntity
+  paymentType: CampaignPaymentType!
+  budget: Float
+  externalBudgetApplicable: Boolean!
+  externalBudget: Float
+  campaignType: String
+  autoInstantPayout: Boolean!
+  videoAsset: Asset
+  videoThumbnailAsset: Asset
+  isReferralCampaign: Boolean!
+  description: String
+  objective: String
+  allowApplicants: Boolean!
+  imageAsset: Asset
+  paymentDelay: Int
+  languages: [String!]
+  minFollowers: Int
+  maxFollowers: Int
+  locations: [String!]
+  minAge: Int
+  maxAge: Int
+  publicProfileMandatory: Boolean!
+  requireAddress: Boolean!
+  supportEmailId: String
+  summaryShortlistAvailable: Boolean!
+  genders: [String!]
+  productsToDeliver: Boolean!
+  creatorProgram: Boolean!
+  creatorProgramTag: String
+  collectionCode: String
+  plixxoCampaignId: String
+  plixxoOldCampaignId: String
+  podType: String
+  instantPayoutFeePercentage: Float!
+  tentativePayoutText: String
+  allowAutoShortlisting: Boolean!
+  showParticipantsOnApp: Boolean!
+  showPostsOnApp: Boolean!
+  formLink: String
+  onApplyTitle: String
+  onApplySubtitle: String
+  onApplyNotes: String
+  rewardLadderCode: String
+  requirements: [String!]
+  campaignCategories: [CampaignCategory!]
+  instagramAuthenticationRequired: Boolean!
+  campaignChallengeImage: Asset
+  allowLaunch: Boolean!
+  editPlatform: Boolean!
+  contentCreationProgram: String
+}
+
+type CMCampaignConnection {
+  pageInfo: PageInfo
+  edges: [CMCampaignEdge!]
+}
+
+type CMCampaignEdge {
+  cursor: String!
+  node: CMCampaign!
+}
+
+type CMCampaignStepCompleteFlag {
+  campaign: Int!
+  brief: Int!
+  shortlist: Int!
+  invite: Int!
+  contentReview: Int!
+  postReview: Int!
+  analytics: Int!
+}
+
+enum CMScreenForShortlistedUser {
+  INFO
+  POST
+  CHAT
+}
+
+type Collection {
+  id: ID!
+  title: String!
+  products: [CollectionProduct!]
+  productCountText: String
+  subtitle: String
+  commisionText: String
+  totalProductCount: Int!
+  link: String
+  banner: Asset
+}
+
+type CollectionAsset {
+  id: ID
+  collection: Collection!
+  selected: Boolean
+}
+
+type CollectionAssetConnection {
+  edges: [CollectionAsset!]
+  pageInfo: PageInfo!
+  tiles: [Tile!]
+}
+
+type CollectionProduct {
+  name: String!
+  productId: ID!
+  skuThumbnail: Asset
+  sellingPrice: Int!
+  mrp: Int!
+}
+
+type ColorGradient {
+  min: String!
+  median: String
+  max: String!
+  angle: Int
+}
+
+type Comment {
+  id: ID!
+  channelId: ID!
+  type: String
+  author: UserAccount!
+  content: String!
+  createdAt: String!
+  isReply: Boolean!
+  commenterName: String
+  status: String!
+  isPinned: Boolean!
+  hostLiked: Boolean!
+  hostMarkedAsHelpful: Boolean!
+  likedByMe: Boolean!
+  markedHelpfulByMe: Boolean!
+  authoredByMe: Boolean!
+  helpfuls: Int
+  likes: Int
+  replies: Int
+  replySummary: ReplySummary
+  cursor: String!
+  requestId: ID
+  parentId: ID
+  parent: MessageCompact
+}
+
+type Commercial {
+  instaCharges: InstaCommercialCharges
+  youtubeCharges: YoutubeCommercialCharges
+}
+
+input CommercialInput {
+  instaImage: Int
+  instaStory: Int
+  instaVideo: Int
+  instaReel: Int
+  instaCarousel: Int
+  youtubeVideo: Int
+}
+
+type Contacts {
+  email: String
+}
+
+type ContentCategory {
+  id: ID!
+  name: String!
+  level: String!
+  childCategories: [ContentCategory!]
+  winklCategoryId: Int
+}
+
+input ContentCategoryInput {
+  id: ID!
+  level: String
+  name: String!
+}
+
+type ContractCongifuration {
+  key: String!
+  values: [String!]
+  value: Int
+  type: String
+  consumed: Int
+  frequency: String
+}
+
+input ContractCongifurationInput {
+  key: String!
+  values: [String!]
+  value: Int
+  type: String
+  consumed: Int
+  frequency: String
+}
+
+enum ContractPlan {
+  FREE
+  PAID
+  SAAS
+}
+
+enum ContractType {
+  SELLER
+  INFLUENCER_MARKETING
+  SAAS
+}
+
+type Countdown {
+  title: String!
+  timer: Int
+  currentTime: Int
+}
+
+type Country {
+  id: String
+  name: String
+}
+
+type Coupon {
+  code: String!
+  description: String
+  discountType: String!
+  discountValue: Float!
+  discountMessage: String
+  minBagValue: Float!
+  startTime: String!
+  expiryTimeMillis: String
+  expiryTime: String
+  expiryMsg: String
+  imageUrl: String
+  enabled: Boolean!
+  valid: Boolean!
+}
+
+type CouponData {
+  link: String
+  location: String
+}
+
+enum CourierPartner {
+  PICKRR
+  XPRESSBEE
+  SHIPDELIGHT
+  SHADOWFAXMKT
+  DELHIVERYAVES
+  ECOM
+}
+
+type Course {
+  courseItems: [CourseItem]
+  image: Asset
+  contentSummary: CourseContentSummary
+  teaserVideo: Asset
+}
+
+type CourseContentSummary {
+  header: String!
+  content: [String!]!
+}
+
+input CourseContentSummaryInput {
+  header: String
+  content: [String!]
+}
+
+input CourseInput {
+  hostId: ID
+  name: String
+  status: ProductStatus
+  description: String
+  hostDescription: String
+  variant: DigitalProductVariantInput
+  imageId: ID
+  contentSummary: CourseContentSummaryInput
+}
+
+type CourseItem {
+  id: ID!
+  name: String
+  isFreeItem: Boolean
+  status: String
+  description: String
+  teaserVideo: Asset
+  teaserVideoThumb: Asset
+  video: Asset
+  videoThumb: Asset
+  attachments: [AttachmentEntry!]
+  overlayIcon: Asset
+}
+
+type CourseItemConnection {
+  pageInfo: PageInfo
+  edges: [CourseItemEdge!]
+}
+
+type CourseItemEdge {
+  cursor: String!
+  node: CourseItem!
+}
+
+input CourseItemInput {
+  id: ID
+  courseCode: ID
+  name: String
+  status: String
+  isFreeItem: Boolean
+  description: String
+  teaserVideoId: ID
+  teaserVideoThumbId: ID
+  videoId: ID
+  videoThumbId: ID
+  attachments: [Attachment!]
+  rank: String
+}
+
+type CpPerformance {
+  status: String!
+  deliverablesSubmitted: Int!
+  deliverablesAssigned: Int!
+  rating: Int
+  comments: [String!]
+  campaignId: Int!
+  title: String!
+}
+
+input CreateMessageInput {
+  campaignId: Int!
+  isBroadcastMessage: Boolean
+  shortlistId: Int
+  sendToAllUsers: Boolean
+  userData: [BroadcastUserData!]
+  filter: CampaignShortlistedUserFilter
+  shortlistedUserId: Int
+  messageContent: String
+  messageType: MessageType!
+  asset: AssetInput
+}
+
+input CreatePartnerInput {
+  contractType: ContractType!
+  name: String!
+  logo: AssetInput
+}
+
+type CreatorCohort {
+  id: ID!
+  tag: CreatorCohortTag!
+  level: CreatorCohortLevel!
+}
+
+enum CreatorCohortLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+}
+
+enum CreatorCohortTag {
+  CONTENT
+  ORDERS
+  VIEWS
+}
+
+input CreatorCohortTagInput {
+  id: Int!
+  level: String!
+  tag: String!
+}
+
+type CreatorProgram {
+  id: ID!
+  tag: CreatorProgramTag!
+  level: CreatorProgramLevel!
+}
+
+enum CreatorProgramLevel {
+  SQUAD
+  CREATOR
+  PRO
+}
+
+enum CreatorProgramTag {
+  BEAUTY
+  GOOD_PARENTING
+  GOOD_LIFE
+}
+
+input CreatorProgramTagInput {
+  id: Int!
+  level: String!
+  tag: String!
+}
+
+input CrudApiQueryConfig {
+  clientType: String!
+  searchquery: SearchQuery
+  batchSize: Int
+}
+
+enum CtaAction {
+  DIFFERENT_NUMBER
+  SAME_NUMBER
+}
+
+type CtaEntry {
+  action: CtaAction!
+  text: String!
+}
+
+type CustomerAccount implements UserAccount {
+  accountType: UserAccountType!
+  id: ID!
+  userId: ID!
+  status: UserClientAccountStatus!
+  name: String
+  bio: String
+  profileImage: Asset
+  coverImage: Asset
+  dob: String
+  gender: Gender
+  email: String
+  countryCode: String
+  phone: String
+  whatsappNumber: String
+  whatsappOptin: Boolean
+  publicProfileId: String
+  storeLink: String
+  referralCode: String
+  referredViaCode: String
+  referredViaClientId: String
+  addresses: [UserAddress!]
+  userAddress: UserAddress
+  kycData: PayoutData
+  permissions: [String!]
+  socialAccounts: [SocialAccount!]
+  unreadNotificationCount: Int!
+  likeStreamCount: Int!
+  viewStreamCount: Int!
+  followingHostCount: Int!
+  cartItemCount: Int!
+  wishlistItemCount: Int!
+  credit: Int!
+  preferredPaymentMode: String
+  freeOrdersCount: Int!
+  totalOrdersCount: Int!
+  webengageUserId: ID
+  g3MemberId: ID
+}
+
+type CustomerDeviceProperty implements DeviceProperty {
+  deviceId: String
+}
+
+type CustomerProfile implements Profile {
+  id: ID!
+  unreadNotificationCount: Int!
+  likeStreamCount: Int!
+  viewStreamCount: Int!
+  followingHostCount: Int!
+  cartItemCount: Int!
+  wishlistItemCount: Int!
+  credit: Int!
+  preferredPaymentMode: String
+  freeOrdersCount: Int!
+  totalOrdersCount: Int!
+}
+
+type CustomerReviewTask {
+  id: Int!
+  idempotencyKey: String
+  widget: CustomerReviewWidget!
+  status: CustomerReviewTaskStatus
+}
+
+enum CustomerReviewTaskStatus {
+  ACTIVE
+  COMPLETED
+  EXPIRED
+}
+
+type CustomerReviewWidget {
+  title: String!
+  description: String
+  image: Asset
+  module: String
+  type: String!
+  questions: [ReviewQuestion!]!
+}
+
+input DashboardSearchFilter {
+  filterType: String!
+  field: String!
+  value: String!
+  expression: String
+  expressionValue: String
+}
+
+input DashboardSearchQuery {
+  filters: [DashboardSearchFilter!]
+  orderBy: String
+  orderDirection: String
+}
+
+type DataSyncResponse {
+  isSynced: Boolean
+}
+
+type DeliverableCoupon {
+  code: String!
+  whatToDo: [String!]
+}
+
+type DeliverableFormatAggregated {
+  format: String!
+  count: Int!
+}
+
+type DeliverableFormatsAggregated {
+  totalCount: Int!
+  formats: [DeliverableFormatAggregated!]
+}
+
+enum DeliverableInputType {
+  MEDIA
+  VIDEO
+  IMAGE
+  LINK
+  TEXT
+  INTEGER
+  FLOAT
+}
+
+type DeliverableLink {
+  link: String!
+  whatToDo: [String!]
+}
+
+type DeliverablePostStats {
+  platform: String
+  format: String
+  totalNumOfPostsReqd: Int
+  numofPostsPosted: Int
+  numOfContentPosted: Int
+}
+
+type DeliverableSubmission {
+  submissionId: ID
+  submittedOn: Int
+  status: DeliverableSubmissionStatus!
+  rejectionReason: String
+  items: [DeliverableSubmissionItem!]
+  ctaText: String
+  nextAction: CampaignNextAction
+  enabled: Boolean!
+  note: String
+  socialPostPublishTime: Int
+  socialPostDeletedByUser: Boolean!
+  tokenExpired: Boolean!
+}
+
+input DeliverableSubmissionInput {
+  campaignId: ID!
+  deliverableId: ID!
+  shortlistUserId: ID!
+  campaignPostFormatId: ID!
+  submissionId: ID
+  level: DeliverableSubmissionLevel!
+  inputs: [DeliverableSubmissionItemInput!]
+}
+
+type DeliverableSubmissionItem {
+  title: String
+  subtitle: String
+  hintText: String
+  note: String
+  ctaText: String
+  links: [String!]
+  mandatory: Boolean!
+  multiple: Boolean!
+  noOfLines: Int!
+  inputType: DeliverableInputType!
+  campaignPostFormatInputId: ID!
+  id: ID
+  assets: [Asset!]
+  strings: [String!]
+  ints: [Int!]
+  floats: [Float!]
+}
+
+input DeliverableSubmissionItemInput {
+  inputType: DeliverableInputType!
+  campaignPostFormatInputId: ID!
+  submissionItemId: ID
+  assets: [AssetInput!]
+  strings: [String!]
+  ints: [Int!]
+  floats: [Float!]
+}
+
+enum DeliverableSubmissionLevel {
+  REVIEW_CONTENT
+  FINAL_POST
+  INSIGHT
+}
+
+enum DeliverableSubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  UNDER_REVIEW
+}
+
+type DeviceInfo {
+  igInfo: InstantGratificationInfo
+  categories: [ContentCategory!]
+}
+
+interface DeviceProperty {
+  deviceId: String
+}
+
+input DeviceUpdateInput {
+  categories: [ContentCategoryInput!]
+}
+
+type DigitalProduct {
+  id: ID!
+  name: String!
+  code: String!
+  hostId: ID!
+  status: String!
+  host: UserAccount!
+  description: String
+  defaultVariant: DigitalProductVariant
+  variants: [DigitalProductVariant!]
+  variantTypes: [String!]!
+  productType: DigitalProductType!
+  inputForm: OnlineForm
+  howItWorks: Instructions
+  cta: String!
+  image: Asset!
+  caption: String
+  captionIcon: Asset
+  overlayIcon: Asset
+  isBought: Boolean!
+  orderLink: String
+  labelCode: String
+  outputAsset: Asset
+  slug: String!
+  path: String!
+  productDetails: DigitalProductDetails!
+  bucketType: String
+  contentFormType: String
+}
+
+type DigitalProductCart {
+  digitalProduct: DigitalProduct!
+  confirmationMessage: String
+  cartId: ID!
+  checksum: ID!
+  chargeableAmount: Float!
+  paymentMethod: String!
+  checkoutType: String!
+  couponCode: String
+  couponDiscount: Float
+  couponEnabled: Boolean
+  discountError: String
+  form: FormSubmission
+  breakup: Map
+  total: Map
+  paymentOptions: [PaymentOptionGroup!]!
+  paymentOptionsHeader: String
+}
+
+input DigitalProductCartInput {
+  productId: ID
+  variantId: ID
+  campaignId: ID
+  form: OnlineFormInput
+  couponCode: String
+}
+
+type DigitalProductConnection {
+  pageInfo: PageInfo
+  edges: [DigitalProductEdge!]
+}
+
+union DigitalProductDetails = Course | Link | ExclusiveContent | SimpleProduct | Event | PersonalisedVideo | LiveVideoChat
+
+type DigitalProductEdge {
+  cursor: String!
+  node: DigitalProduct!
+}
+
+type DigitalProductFulfillmentDetails implements FulFillmentDetails {
+  resolverType: String!
+  host: UserAccount
+  inputForm: FormSubmission
+  outputForm: FormSubmission
+}
+
+enum DigitalProductTemplateType {
+  VIDEO_CALL_WITH_DATE
+  VIDEO_CALL_WITHOUT_DATE
+  INSTA_VIDEO_CALL_WITH_DATE
+  INSTA_VIDEO_CALL_WITHOUT_DATE
+  EXCLUSIVE_CONTENT_IMAGE
+  EXCLUSIVE_CONTENT_VIDEO
+  SHOUTOUT_ON_IG
+  PERSONALIZED_VIDEO_WITH_DATE
+  PERSONALIZED_VIDEO_WITHOUT_DATE
+  LINK
+  COURSE
+}
+
+enum DigitalProductType {
+  LIVE_VIDEO_CHAT
+  SHOUTOUT
+  EXCLUSIVE_CONTENT
+  PERSONALIZED_VIDEO
+  LINK
+  EVENT
+  COURSE
+}
+
+type DigitalProductVariant {
+  id: ID!
+  mrp: Float!
+  sellingPrice: Float!
+  sellingPriceText: String!
+  discountText: String!
+  mrpText: String!
+  discount: Float!
+  outOfStock: Boolean!
+  variantOptions: Map
+  isFree: Boolean!
+}
+
+input DigitalProductVariantAttributeInput {
+  key: String!
+  value: String!
+}
+
+input DigitalProductVariantInput {
+  mrp: Float
+  sellingPrice: Float
+}
+
+type DigitalProductWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  cursor: String
+  data: DigitalProduct!
+}
+
+type DynamicLink {
+  id: ID!
+  clientId: String!
+  source: String
+  identifier: String
+  dynamicLink: String
+  channel: String
+  feature: String
+  campaign: String
+  tags: [String!]
+  canonicalIdentifier: String
+  ogTitle: String
+  ogDescription: String
+  ogImageUrl: String
+  ogVideo: String
+  ogUrl: String
+  deeplinkPath: String!
+  androidDeeplinkPath: String
+  androidUrl: String
+  iosDeeplinkPath: String
+  desktopDeeplinkPath: String
+  marketingTitle: String
+  linkClient: String!
+  promptAppDownload: Boolean!
+}
+
+input DynamicLinkFingerprintInput {
+  ip: String
+  osName: String
+  osVersion: String
+  osPlatform: String
+  isMobile: Boolean!
+}
+
+input DynamicLinkInput {
+  clientId: String!
+  source: String
+  identifier: String
+  channel: String!
+  feature: String!
+  campaign: String!
+  canonicalIdentifier: String
+  ogTitle: String
+  ogDescription: String
+  ogImageUrl: String
+  ogVideo: String
+  ogUrl: String
+  deeplinkPath: String!
+  androidDeeplinkPath: String
+  androidUrl: String
+  iosDeeplinkPath: String
+  desktopDeeplinkPath: String
+  marketingTitle: String!
+  domainPrefix: String
+  linkClient: String!
+  promptAppDownload: Boolean!
+}
+
+type EkycVerificationResponse {
+  status: Boolean!
+  code: Int!
+  message: String!
+  notice: String
+}
+
+input EmailLinkInput {
+  id: String!
+  secret: String!
+}
+
+type EmptyPaymentScreen {
+  icon: Asset
+  title: String
+  subTitle: String
+  ctaText: String
+  ctaAction: CampaignNextAction
+}
+
+enum EntityType {
+  COMMENT
+  STREAM
+  USER
+  GROUP
+  FREE_SEARCH_PAGE
+  PRODUCT
+}
+
+type ERPAccount implements UserAccount {
+  accountType: UserAccountType!
+  id: ID!
+  userId: ID!
+  status: UserClientAccountStatus!
+  name: String
+  bio: String
+  profileImage: Asset
+  coverImage: Asset
+  dob: String
+  gender: Gender
+  email: String
+  countryCode: String
+  phone: String
+  whatsappNumber: String
+  whatsappOptin: Boolean
+  publicProfileId: String
+  storeLink: String
+  referralCode: String
+  referredViaCode: String
+  referredViaClientId: String
+  addresses: [UserAddress!]
+  userAddress: UserAddress
+  kycData: PayoutData
+  permissions: [String!]
+  socialAccounts: [SocialAccount!]
+  webengageUserId: ID
+  g3MemberId: ID
+  visitedDemo: Boolean!
+  assignedCampaignIds: [Int!]
+  brand: WinklBrand
+  partnerUserProfile: PartnerUserProfile
+}
+
+type Event {
+  date: String
+  contentSummaries: [CourseContentSummary!]
+  assets: [Asset!]
+  eventType: EventType
+  venue: String
+  contentDescription: String
+  image: Asset
+  startDate: String
+  startTime: String
+  endDate: String
+  endTime: String
+  duration: Int
+  meetingPlatform: String
+  meetingLink: String
+  viaBulbul: Boolean!
+}
+
+type EventDetails {
+  date: String
+}
+
+input EventInput {
+  hostId: ID
+  name: String
+  status: ProductStatus
+  description: String
+  variant: DigitalProductVariantInput
+  contentDescription: String
+  assetIds: [Int!]
+  startDate: String
+  startTime: String
+  endDate: String
+  endTime: String
+  duration: Int
+  eventType: String
+  venue: String
+  meetingPlatform: String
+  meetingLink: String
+  viaBulbul: Boolean
+  imageId: ID
+}
+
+type EventSlot {
+  startDate: String!
+  startTime: String!
+  endDate: String!
+  endTime: String!
+  displayText: String!
+  enabled: Boolean!
+}
+
+type EventSlotBucket {
+  bucketName: String!
+  slots: [EventSlot!]
+}
+
+input EventSlotInput {
+  date: String!
+  duration: Int!
+  viaBulbul: Boolean!
+}
+
+enum EventType {
+  OFFLINE
+  ONLINE
+}
+
+type ExclusiveContent {
+  video: Asset
+  image: Asset
+  thumbnail: Asset
+  overlayIcon: Asset
+  contentType: ExclusiveContentType
+}
+
+input ExclusiveContentInput {
+  templateType: String
+  hostId: ID
+  name: String
+  status: ProductStatus
+  description: String
+  variant: DigitalProductVariantInput
+  videoId: ID
+  thumbnailId: ID
+  imageId: ID
+  contentType: ExclusiveContentType
+}
+
+enum ExclusiveContentType {
+  IMAGE
+  VIDEO
+}
+
+type ExpertGroup {
+  id: ID
+  name: String
+  theme: String
+  description: String
+  dailyMessagesCount: String
+  dailyMessagesLimit: Int
+  totalSlots: Int
+  status: String
+  memberCount: String
+  admins: [UserAccount]
+  owner: UserAccount
+  membershipType: String
+  image: Asset
+  video: Asset
+  lastMessageId: Int
+  canJoin: Boolean
+  refreshIntervalSeconds: Int
+  expertBadgeText: String
+  channelId: String
+  messageCount: Int
+  hostAppDynamicLink: String
+  customerAppDynamicLink: String
+  hostAppShareMessage: ShareMessage
+  customerAppShareMessage: ShareMessage
+  hostAppShareMessageTemplate: String
+  customerAppShareMessageTemplate: String
+  flags: JSON
+}
+
+type ExpertGroupActionResponse {
+  success: Boolean
+  edge: ExpertGroup
+  message: String
+  description: String
+}
+
+type ExpertGroupConnection {
+  edges: [ExpertGroupEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ExpertGroupEdge {
+  cursor: String!
+  node: ExpertGroup!
+}
+
+input ExpertGroupInviteInput {
+  groupId: ID
+  phones: [String]
+}
+
+type ExpertGroupMember {
+  user: UserAccount
+  type: String
+  status: String
+  createdOn: String
+}
+
+type ExpertGroupMemberConnection {
+  edges: [ExpertGroupMemberEdge]!
+  pageInfo: PageInfo!
+}
+
+type ExpertGroupMemberEdge {
+  cursor: String!
+  node: ExpertGroupMember!
+}
+
+type Facebook {
+  title: String
+  userid: String
+  username: String
+  category: String
+  statistics: Statistics
+}
+
+type FAQ {
+  question: String!
+  answer: String!
+}
+
+type FAQResponse {
+  title: String!
+  sections: [FAQSection!]
+}
+
+type FAQSection {
+  title: String!
+  questions: [FAQ!]
+}
+
+type FilterField {
+  name: String!
+  id: ID!
+  values: [FilterFieldValue!]
+  filterType: FilterType!
+  selectedCount: Int!
+}
+
+input FilterFieldInput {
+  id: ID!
+  valueIds: [ID!]
+}
+
+type FilterFieldValue {
+  id: ID!
+  name: String!
+  selected: Boolean!
+}
+
+enum FilterTags {
+  DAILY_USE
+  UNIQUE
+  BULBUL_EXCLUSIVE
+  VALUE_FOR_MONEY
+}
+
+enum FilterType {
+  SINGLE_SELECT
+  MULTI_SELECT
+}
+
+input FinishUploadInput {
+  path: String!
+  width: String
+  height: String
+  duration: String
+}
+
+type FixedPayoutConfig {
+  amount: Int!
+  slots: Int
+  metricThreshold: Int!
+}
+
+input FixedPayoutConfigInput {
+  amount: Int!
+  slots: Int
+  metricThreshold: Int!
+}
+
+type FollowCard {
+  hostId: ID!
+  icon: Asset!
+  name: String!
+  subText: String!
+  actionText: String
+  actionLink: String
+}
+
+type FollowHighlightItem implements HighlightItem {
+  id: ID!
+  seen: Boolean!
+  followCards: [FollowCard!]
+  text: String
+  subText: String
+  recoInfo: Map
+  actionText: String
+  actionLink: String
+  timestampText: String!
+  shareLink: String
+  live: Boolean!
+}
+
+enum FontWeight {
+  BOLD
+  NORMAL
+  ITALIC
+}
+
+type Form {
+  elements: [FormElement!]!
+}
+
+type FormElement {
+  id: ID!
+  type: FormElementType!
+  title: String!
+  options: [FormElementOption!]
+  mandatory: Boolean!
+}
+
+input FormElementInput {
+  widgetId: ID!
+  type: FormElementType!
+  answer: String!
+}
+
+type FormElementOption {
+  id: ID!
+  background: Background
+  asset: Asset
+  text: String
+}
+
+enum FormElementType {
+  RATING
+  TEXT
+  MULTISELECT
+  SELECT
+}
+
+type FormSubmission {
+  fields: [OnlineFormFieldSubmission!]
+}
+
+type FormWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  form: Form!
+}
+
+interface FulFillmentDetails {
+  resolverType: String!
+}
+
+enum FulfillmentOwnerType {
+  SELLER
+  HOST
+}
+
+type GameMilestone {
+  scoreText: String!
+  earningText: String!
+  status: GameMilestoneStatus!
+}
+
+type GameMilestoneInfo {
+  icon: Asset
+  title: String
+  scoreText: String
+  earningText: String
+  milestoneText: String
+  milestones: [GameMilestone!]
+  actionLink: String
+  actionText: String
+}
+
+enum GameMilestoneStatus {
+  PENDING
+  ONGOING
+  COMPLETED
+}
+
+type GamePage {
+  title: String!
+  coverImage: Asset
+  rule: Rule
+  creditIcon: Asset
+  creditTitle: String
+  creditAmount: String
+  creditMessage: String
+  creditActionText: String
+  creditActionLink: String
+  shareMessage: ShareMessage
+  gameSections: [GameSection!]
+}
+
+type GameSection {
+  icon: Asset
+  title: String
+  games: [ShowcaseWidget!]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHERS
+}
+
+input GenerateInvoiceInput {
+  shortlistUserId: ID!
+  amount: Float
+  reimbursementAmount: Float
+}
+
+input GoogleSheetLeadInput {
+  emailId: String
+  name: String
+  phoneNumber: String
+  companyName: String
+  likelyToAttend: String
+  source: String
+  message: String
+  budget: String
+  category: String
+  brand: String
+  agency: String
+  influencer: String
+  offeringType: String
+  sheetName: String
+}
+
+type GridWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  gridDirection: String!
+  gridSpanCount: Int!
+  gridLayout: [Int!]
+  data: [GridWidgetData!]
+  hostCampaignId: ID
+}
+
+union GridWidgetData = Banner | Product | DigitalProduct | Campaign
+
+type GroupTrackingDetail {
+  heading: String!
+  subHeadings: [String!]
+  actionCode: String
+  actionMeta: JSON
+  eventDate: String
+  notices: [String!]
+}
+
+type HashTag {
+  slug: String!
+  text: String!
+}
+
+type Header {
+  title: String
+  subTitle: String
+  description: String
+  iconImageUrl: String
+  background: Background
+  actionLink: String
+  actionText: String
+  variantName: String
+  countdown: Countdown
+}
+
+type HeaderWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  aspectRatio: Float
+}
+
+type Highlight {
+  id: String!
+  title: String
+  subTitle: String
+  timestampText: String
+  icon: Asset!
+  live: Boolean!
+  seen: Boolean!
+  actionLink: String
+  itemCursor: String
+  items: [HighlightItem!]
+}
+
+type HighlightConnection {
+  pageInfo: PageInfo
+  edges: [HighlightEdge!]
+}
+
+type HighlightEdge {
+  cursor: String!
+  node: Highlight!
+}
+
+interface HighlightItem {
+  id: ID!
+  seen: Boolean!
+  text: String
+  subText: String
+  actionText: String
+  actionLink: String
+  timestampText: String!
+  shareLink: String
+  live: Boolean!
+}
+
+type HighlightWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  data: HighlightConnection!
+}
+
+type Histogram {
+  ranges: [Metric!]!
+}
+
+type HomepageVideoWidgetConfig {
+  type: String
+  videoLink: String
+  deepLink: String
+  frequency: Int
+  frequencyInterval: Int
+  startCtaTimestamp: Int
+  endCtaTimestamp: Int
+  cta: String
+}
+
+type HorizontalWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  label: String
+  labelGradient: ColorGradient
+  cards: HorizontalWidgetDataConnection
+  hostCampaignId: ID
+}
+
+union HorizontalWidgetCard = Banner | Product | DigitalProduct | Campaign
+
+type HorizontalWidgetDataConnection {
+  pageInfo: PageInfo
+  edges: [HorizontalWidgetDataEdge!]
+}
+
+type HorizontalWidgetDataEdge {
+  node: HorizontalWidgetCard!
+  cursor: String
+}
+
+type HostAccount implements UserAccount {
+  profileUpdatableOnApp: Boolean!
+  profileType: ProfileType
+  accountType: UserAccountType!
+  id: ID!
+  userId: ID!
+  status: UserClientAccountStatus!
+  unreadNotificationCount: Int!
+  name: String
+  bio: String
+  profileImage: Asset
+  coverImage: Asset
+  dob: String
+  gender: Gender
+  email: String
+  countryCode: String
+  phone: String
+  whatsappNumber: String
+  whatsappOptin: Boolean
+  completionPercent: Int!
+  incompleteSections: [HostProfileSection!]
+  publicProfileId: String
+  storeLink: String
+  referralCode: String
+  referredViaCode: String
+  referredViaClientId: String
+  addresses: [UserAddress!]
+  userAddress: UserAddress
+  kycData: PayoutData
+  permissions: [String!]
+  socialAccounts: [SocialAccount!]
+  location: String
+  shopOnboarded: Boolean!
+  shopBio: String
+  webengageUserId: ID
+  g3MemberId: ID
+  myGlammReferenceCode: String
+  languages: [Language!]
+  userCategories: [ContentCategory!]
+  commercials: Commercial
+  plusMember: Boolean
+  barterAllowed: Boolean
+  shortlistedInPaidCampaign: Boolean
+  deviceId: String
+  instantGratificationInfo: InstantGratificationInfo
+}
+
+type HostDeviceProperty implements DeviceProperty {
+  deviceId: String
+}
+
+type HostInfoWidget {
+  profileCompletionPercent: Int!
+  profileCompletionStatus: String!
+  title: String
+  description: String
+  ctaText: String
+  ctaActionLink: String
+  editProfileToast: String
+}
+
+input HostInput {
+  profileDetailsUpdated: Boolean
+  publicProfileId: String
+  storeOnboarded: Boolean
+  shopBio: String
+  userCategories: [ContentCategoryInput!]
+  commercials: CommercialInput
+  barterAllowed: Boolean
+  profileType: ProfileType
+}
+
+enum HostPresentationStyle {
+  ENTERTAINMENT
+  OTHERS
+  PRODUCT_REVIEW
+  DAILY_VLOG
+  FASHION_VLOG
+}
+
+type HostProfile implements Profile {
+  id: ID!
+  staticStreamEnabled: Boolean!
+  liveStreamEnabled: Boolean!
+  storeLink: String
+  followerCount: Int!
+  scheduledVideoCount: Int!
+  totalLiveCount: Int!
+  unreadNotificationCount: Int!
+  wishlistItemCount: Int!
+  storeTheme: String!
+  productOfferingTypes: [String!]
+  spokenLanguages: [String!]
+  whatsappChatNumber: String
+  whatsappChatIntroMessage: String
+  profileStatusInfo: HostInfoWidget
+  categories: [ID!]
+  subCategories: [ID!]
+  auditionVideos: [Asset!]
+  shareIcons: [ShareIcon!]
+  hostAppShareLinks: JSON
+  introVideo: Asset
+  promoImage: Asset
+  expertTopics: [String!]
+  contentCategories: [ContentCategory!]
+  onboardingVideoCount: Int!
+  l1CategoryIds: [ID!]
+  l2SubCategoryIds: [ID!]
+  targetAudienceGenders: [String!]
+  presentationStyle: HostPresentationStyle
+}
+
+input HostProfileInput {
+  categories: [ID!]
+  subCategories: [ID!]
+  spokenLanguages: [String!]
+  auditionVideoIds: [ID!]
+  introVideoId: ID
+  promoImageId: ID
+  expertTopics: [String!]
+  storeTheme: String
+  whatsappChatNumber: String
+  whatsappChatIntroMessage: String
+  targetAudienceGenders: [String!]
+  l1CategoryIds: [ID!]
+  l2SubCategoryIds: [ID!]
+  email: String
+  presentationStyle: HostPresentationStyle
+}
+
+enum HostProfileSection {
+  ABOUT_YOU_1
+  ABOUT_YOU_2
+  ABOUT_YOU_3
+  SOCIAL_IG
+  SOCIAL_YT
+  COMMERCIAL_IG
+  COMMERCIAL_YT
+}
+
+type Icon {
+  title: String
+  asset: Asset
+  actionLink: String
+  label: String
+  labelColorGradient: ColorGradient
+}
+
+type IconWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  xOverflow: String
+  direction: String
+  numOfRows: Int
+  data: [Icon!]
+}
+
+type ImageGridWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  gridDirection: String!
+  gridSpanCount: Int!
+  gridLayout: [Int!]
+  data: [Banner!]
+}
+
+type ImageHighlightItem implements HighlightItem {
+  id: ID!
+  seen: Boolean!
+  image: Asset!
+  text: String
+  subText: String
+  actionText: String
+  actionLink: String
+  timestampText: String!
+  shareLink: String
+  live: Boolean!
+}
+
+type Influencer {
+  id: ID!
+  platformAccountId: String!
+  tag: String
+  onGcc: Boolean!
+  instaVerified: Boolean!
+  isBlackListed: Boolean
+  blackListedBy: String
+  blackListedReason: String
+  name: String
+  email: String
+  socialHandles: [SocialAccount!]
+  gender: Gender
+  contentCategories: [ContentCategory!]
+  label: InfluencerLabel
+  profileLabel: String
+  languages: [String!]
+  country: String
+  state: String
+  city: String
+  bio: String
+  dob: String
+  age: Int
+  barterAllowed: Boolean!
+  isPlixxoUser: Boolean!
+  isPlixxoMigrated: Boolean!
+  profileImage: Asset
+  whatsappNumber: String
+  whatsappOptin: Boolean
+  creatorPrograms: [CreatorProgram!]
+  creatorCohorts: [CreatorCohort!]
+  phone: String
+  comment: String
+  commercials: [InfluencerCommercial!]
+  campaignShortlistedUser: CampaignShortlistedUser
+}
+
+union InfluencerAsset = CollectionAsset | LinkAsset | BrandAsset
+
+type InfluencerAssetWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  data: InfluencerAsset!
+}
+
+type InfluencerBucket {
+  handle: String!
+  count: Int
+}
+
+type InfluencerCommercial {
+  id: String
+  price: String
+  format: String
+}
+
+type InfluencerCompact {
+  id: ID!
+  handle: String
+  name: String
+  followers: Int
+  avgEngagement: Float
+  profilePic: Asset
+}
+
+type InfluencerConnection {
+  pageInfo: PageInfo
+  edges: [InfluencerEdge!]
+}
+
+type InfluencerEdge {
+  cursor: String!
+  node: Influencer!
+}
+
+type InfluencerHighlightItem implements HighlightItem {
+  id: ID!
+  hostId: String!
+  seen: Boolean!
+  text: String
+  subText: String
+  badge: Asset
+  recoInfo: Map
+  influencerImage: Asset
+  actionText: String
+  actionLink: String
+  timestampText: String!
+  shareLink: String
+  live: Boolean!
+}
+
+input InfluencerInput {
+  id: ID
+  isBlacklisted: Boolean
+  blacklistedReason: String
+  name: String
+  email: String
+  socialHandles: [SocialAccountInput!]
+  creatorPrograms: [CreatorProgramTagInput!]
+  creatorCohorts: [CreatorCohortTagInput!]
+  gender: Gender
+  contentCategories: [Int!]
+  label: InfluencerLabel
+  languages: [String!]
+  country: String
+  state: String
+  city: String
+  bio: String
+  dob: String
+  whatsappOptin: Boolean
+  phone: String
+  comment: String
+}
+
+enum InfluencerLabel {
+  CELEB
+  MACRO_INFLUENCER
+  MICRO_INFLUENCER
+  CURATION_PAGE
+  SPAM
+}
+
+type InfluencerPrices {
+  prices: Map
+}
+
+type InfluencerTopKKeywords {
+  keywordBuckets: [KeywordBucketInfo!]
+}
+
+type InfluencerWithAppData {
+  id: ID!
+  platformAccountId: String!
+  tag: String
+  onGcc: Boolean!
+  instaVerified: Boolean!
+  isBlackListed: Boolean
+  blackListedBy: String
+  blackListedReason: String
+  name: String
+  email: String
+  socialHandles: [SocialAccount!]
+  gender: Gender
+  contentCategories: [ContentCategory!]
+  label: InfluencerLabel
+  profileLabel: String
+  languages: [String!]
+  country: String
+  state: String
+  city: String
+  bio: String
+  dob: String
+  age: Int
+  barterAllowed: Boolean!
+  isPlixxoUser: Boolean!
+  isPlixxoMigrated: Boolean!
+  profileImage: Asset
+  whatsappNumber: String
+  whatsappOptin: Boolean
+  creatorPrograms: [CreatorProgram!]
+  creatorCohorts: [CreatorCohort!]
+  phone: String
+  comment: String
+  commercials: [InfluencerCommercial!]
+  appData: AppData
+}
+
+type InfoWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  data: [InfoWidgetData!]
+}
+
+type InfoWidgetData {
+  ID: ID!
+  title: String
+  subTitle: String
+  image: Asset
+  imageType: String
+  label: String
+  labelColor: String
+}
+
+input InitDeviceInput {
+  clientSecret: String!
+  userToken: String
+  userRefreshToken: String
+  ssoToken: String
+  authCode: String
+}
+
+type InitDeviceResp {
+  softUpdateVersion: Int!
+  forceUpdateVersion: Int!
+  forceUpdateSpecificVersions: [Int!]
+  userToken: String!
+  plixxoDataMigrated: Boolean!
+  refreshTime: String!
+  userRefreshToken: String
+  bbDeviceId: String!
+  loggedIn: Boolean!
+  preferences: Map
+  userAccount: UserAccount
+  experiments: Map
+  creatorShopEnabled: Boolean!
+  credsLoginEnabled: Boolean!
+  defaultRewardLadder: RewardLadder
+  notificationDisabled: Boolean!
+  appUnderMaintenance: Boolean!
+  videoWidgetConfig: HomepageVideoWidgetConfig
+}
+
+input InitiateAffiliatePaymentInput {
+  pgMetadata: PGMetaDataInput!
+  affiliateOrderId: ID!
+  chargeableAmount: Float!
+}
+
+type InitiatePaymentResp {
+  transactionId: ID!
+  affiliateOrderId: ID!
+  paymentStatus: String!
+  pgMetadata: PgMetadata!
+  chargeableAmount: Float!
+}
+
+type InitResponse {
+  path: String!
+  url: String!
+}
+
+input InitUploadInput {
+  usage: String
+  type: String
+  source: String
+  sourceId: String
+}
+
+type InsightData {
+  total: Int
+  dailyCountChange: Int
+  dailyPercentChange: Float
+  weeklyCountChange: Int
+  weeklyPercentChange: Float
+}
+
+type InstaCommercialCharges {
+  image: Int
+  story: Int
+  video: Int
+  reels: Int
+  carousel: Int
+}
+
+type Instagram {
+  title: String
+  thumbnail: String
+  userid: String
+  username: String
+  category: String
+  statistics: Statistics
+  description: String
+}
+
+type InstantGratificationInfo {
+  isInvited: Boolean!
+  slug: String
+  cta: String
+  campaignIds: [Int!]
+}
+
+type InstructionDetails {
+  id: ID!
+  icon: Asset
+  title: String!
+  description: String
+  images: [Asset!]
+}
+
+type Instructions {
+  title: String
+  footer: String
+  content: [String]
+}
+
+type Inventory {
+  id: ID!
+  blockedInventory: Int!
+  warehouseInventory: Int!
+  availableInventory: Int!
+  sellerSkuCode: String!
+  status: String!
+  sellerWarehouse: SellerWarehouse!
+  seller: Seller!
+  skuId: ID!
+  sku: Sku!
+}
+
+type InventoryConnection {
+  pageInfo: PageInfo
+  edges: [InventoryEdge!]
+}
+
+type InventoryEdge {
+  cursor: String!
+  node: Inventory!
+}
+
+input InventoryUpdateInput {
+  status: String
+  availableInventory: Int
+  sellerWarehouse: SellerWarehouseReq
+}
+
+type InvoiceEntity {
+  id: ID!
+  displayName: String!
+  entityName: String!
+  addressLine1: String
+  addressLine2: String
+  city: String
+  state: String
+  pincode: String
+  panNumber: String
+  gst: String
+  cin: String
+  autoPaymentAllowed: Boolean!
+  whitelisted: Boolean!
+}
+
+enum InvoicePaymentStatus {
+  GENERATED
+  PROCESSED
+  FAILED
+  INITIATED
+}
+
+type Job {
+  id: String!
+  jobType: String!
+  status: String!
+  totalStepCount: Int
+  completedStepCount: Int
+  hasFailures: Boolean!
+  remark: String
+  jobName: String
+  createdBy: String
+  createdOn: String
+  inputFileUrl: String
+  outputFileUrl: String
+  jobIdentifier: String
+  context: JSON
+}
+
+type JobConnection {
+  pageInfo: PageInfo
+  edges: [JobEdge!]
+}
+
+type JobEdge {
+  cursor: String!
+  node: Job!
+}
+
+input JobInput {
+  jobType: String!
+  remark: String
+  jobName: String
+  jobIdentifier: String
+  inputAssetInformation: AssetInput
+  context: JSON
+  input: Map
+  crudApiQueryConfig: CrudApiQueryConfig
+}
+
+scalar JSON
+
+enum KeywordBucket {
+  COMMENTS
+  HASHTAGS
+  CAPTIONS
+  PROMOTIONAL
+}
+
+type KeywordBucketInfo {
+  bucket: KeywordBucket!
+  keywords: [String!]
+  count: Int!
+}
+
+type KycData {
+  isComplete: Boolean!
+  isVerified: Boolean!
+}
+
+type KycDocumentDetail {
+  id: String!
+  isVerified: Boolean!
+}
+
+enum KYCType {
+  DL
+  AADHAR
+  VOTER_ID
+  PASSPORT
+  PAN
+}
+
+type Language {
+  code: String!
+  name: String!
+  en_name: String
+  welcome: LanguageText
+  change: LanguageText
+}
+
+type LanguageText {
+  heading: String
+  text: String
+  buttonText: String
+}
+
+input LaunchReferEventInput {
+  referralIdentifier: String!
+  dynamicLink: String!
+  deepLink: String
+}
+
+type Lead {
+  id: ID!
+  campaignPlanUniqueId: String
+  campaignPlanLink: String
+}
+
+enum LeadboardStatus {
+  ENDED
+  LIVE
+}
+
+type Leaderboard {
+  variant: LeaderboardVariant!
+  metricStateInfo: StateInfo
+  groupCode: String
+  type: LeaderBoardType!
+  status: LeadboardStatus
+  latestRefreshTime: String
+  meta: LeaderBoardMeta
+  totalParticipants: Int
+  currentUser: LeaderboardRow
+  rows: [LeaderboardRow!]
+}
+
+type LeaderboardConfig {
+  variant: LeaderboardVariant!
+  code: String!
+  metricStateInfo: StateInfo
+  tncInfo: StateInfo
+  slotSize: Int!
+  leaderboardEnded: Boolean!
+  showLeaderboard: Boolean!
+  showWidgetOnApp: Boolean!
+  showMetricsBreakup: Boolean!
+  showMetricsFormatting: Boolean!
+  cutoffTime: String!
+  groupCode: String
+  metricsConfig: [MetricsConfig!]!
+  note: String
+  termsAndConditions: String
+  scoreKey: String!
+  emptyStateInfo: StateInfo
+  fixedPayoutEnabled: Boolean
+  fixedPayoutConfig: FixedPayoutConfig
+}
+
+input LeaderboardConfigInput {
+  code: String
+  slotSize: Int
+  leaderboardEnded: Boolean
+  showLeaderboard: Boolean
+  showWidgetOnApp: Boolean
+  showMetricsBreakup: Boolean
+  showMetricsFormatting: Boolean
+  endTime: String
+  metricsConfig: [MetricsConfigInput!]
+  metricStateInfo: StateInfoInput
+  tncInfo: StateInfoInput
+  emptyStateInfo: StateInfoInput
+  note: String
+  termsAndConditions: String
+  scoreKey: String
+  fixedPayoutEnabled: Boolean
+  fixedPayoutConfig: FixedPayoutConfigInput
+}
+
+type LeaderboardConnection {
+  edges: [LeaderboardEdge!]
+  pageInfo: PageInfo!
+}
+
+type LeaderboardEdge {
+  id: ID!
+  node: Leaderboard!
+}
+
+type LeaderboardGroupConfig {
+  id: ID!
+  groupCode: String!
+  overallLabel: String
+  leaderboardInfo: LeaderboardConfig
+}
+
+input LeaderboardGroupConfigInput {
+  groupCode: String!
+  overallLabel: String
+  challengesInfo: [ChallengeInfoInput!]
+  leaderboardInfo: LeaderboardConfigInput
+}
+
+type LeaderboardGroupInfo {
+  sections: [LeaderBoardSection!]
+  emptyStateInfo: StateInfo
+}
+
+type LeaderBoardMeta {
+  orderCutoffDate: String
+  waitingDays: Int
+  slotSize: Int
+  note: String
+  termsAndConditons: String
+  emptyStateInfo: StateInfo
+  tncInfo: StateInfo
+  scoreKey: String
+}
+
+type LeaderboardMetrics {
+  scoreText: String
+  scoreKey: String
+  metricValues: [MetricsObject!]
+  score: Float
+  likes: Int
+  comments: Int
+  votes: Int
+  likesText: String
+  commentsText: String
+  votesText: String
+  orders: Int
+  prize: Int
+  websiteSessions: Int
+  views: Int
+  clicks: Int
+}
+
+type LeaderboardRow {
+  isCurrentUser: Boolean!
+  rank: Int!
+  name: String!
+  handle: String
+  platform: SocialNetworkType!
+  link: String
+  profileImage: Asset
+  metrics: LeaderboardMetrics
+}
+
+type LeaderBoardSection {
+  heading: String!
+  leaderboardCode: String!
+}
+
+enum LeaderBoardType {
+  BIG_BOSS_VOTE
+  AFFILIATE_ORDER
+  WEBSITE_SESSION
+  LEAGUE
+}
+
+enum LeaderboardVariant {
+  DEFAULT
+  LEAGUE
+}
+
+input LeadInput {
+  category: String
+  brandWebsiteLink: String
+  offeringType: LeadOfferingType
+  budget: String
+  message: String
+  campaignTimeline: String
+  phone: String
+  email: String
+  targetAudienceCities: [TargetAudienceCityInput!]
+  targetAudienceGender: TargetAudienceGender
+  targetAudienceAge: [String!]
+  appType: String
+  title: String
+  slackText: String
+  firstName: String
+  lastName: String
+  company: String
+  source: String
+  ownerId: Int
+  pipelineId: Int
+  sheetName: String
+  campaignPlanUniqueId: String
+  sendEmail: Boolean
+  sendSlack: Boolean
+  sendGoogleSheets: Boolean
+  socialHandle: String
+  platform: String
+  link: String
+  gender: String
+  location: String
+  age: String
+  pageIdentifier: String
+  requirementViaSource: String
+  onboardingUseCase: String
+  roleInCompany: String
+  orgType: String
+  existingTools: String
+  creatorsCollaboratedWith: String
+  usedOurProduct: String
+  requirement: String
+  salesQualified: String
+  listKey: String
+}
+
+enum LeadOfferingType {
+  INFLUENCER_MARKETING
+  INFLUENCER_COMMERCE
+  CONTENT_CREATION
+  INFLUENCER_CONTENT
+  INFLUENCER_SAMPLING
+  INTERNATIONAL_CAMPAIGNS
+  USER_GENERATED_CONTENT
+  CONTENT_AMPLIFICATION
+}
+
+type Link {
+  link: String
+  icon: Asset
+}
+
+type LinkAsset {
+  id: ID!
+  link: ShopLink!
+}
+
+type LinkAssetConnection {
+  edges: [LinkAsset!]
+  pageInfo: PageInfo!
+}
+
+type LinkData {
+  link: String
+  location: String
+}
+
+input LinkInput {
+  hostId: ID
+  name: String
+  status: ProductStatus
+  description: String
+  variant: DigitalProductVariantInput
+  iconId: ID
+  linkUrl: String
+}
+
+type ListItem {
+  ID: ID!
+  title: String
+  subTitle: String
+  image: Asset
+  imageType: String
+  actionText: String
+  actionLink: String
+  actionViewType: ActionViewType
+}
+
+type ListItemWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  data: [ListItem!]
+}
+
+type LiveVideoChat {
+  socialNetworkType: SocialNetworkType!
+  icon: Asset
+}
+
+input LiveVideoChatInput {
+  hostId: ID
+  productType: DigitalProductType
+  name: String
+  status: ProductStatus
+  description: String
+  variant: DigitalProductVariantInput
+  iconId: ID
+  socialNetwork: SocialNetworkType
+}
+
+type Locality {
+  id: Int!
+  name: String
+}
+
+type Location {
+  id: ID!
+  name: String!
+  fullName: String
+  locationType: String
+}
+
+type LocationConnection {
+  pageInfo: PageInfo
+  edges: [LocationEdge!]
+}
+
+type LocationDemographic {
+  city: String
+  state: String
+  count: Int
+}
+
+type LocationEdge {
+  edge: Location!
+  cursor: String!
+}
+
+type LocationGroupStats {
+  location: String!
+  influencerBuckets: [InfluencerBucket!]
+}
+
+scalar Map
+
+input MemberInviteInput {
+  memberEmail: String!
+  partnerId: ID!
+  partnerClientId: String!
+  permissions: [String!]
+  isAdmin: Boolean!
+}
+
+type MemberInviteRequest {
+  code: String!
+  memberEmail: String!
+  partnerId: ID!
+  status: String!
+  permissions: [String!]
+  isAdmin: Boolean!
+  expiresOn: String!
+  acceptedOn: String
+}
+
+type MemberInviteRequestConnection {
+  edges: [MemberInviteRequestEdge!]
+  pageInfo: PageInfo!
+}
+
+type MemberInviteRequestEdge {
+  node: MemberInviteRequest!
+  cursor: String
+}
+
+type Message {
+  id: String!
+  content: String
+  isRead: Boolean
+  isEscalated: Boolean
+  messageType: MessageType
+  asset: Asset
+  sender: MessagePerson!
+  receiver: MessagePerson!
+  createdOn: String!
+}
+
+type MessageCompact {
+  id: ID!
+  content: String!
+  author: UserAccount!
+}
+
+type MessageConnection {
+  pageInfo: PageInfo
+  edges: [MessageEdge!]
+}
+
+type MessageEdge {
+  cursor: String!
+  node: Message!
+}
+
+enum MessagePerson {
+  CAMPAIGN_USER
+  CAMPAIGN_MANAGER
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  VIDEO
+}
+
+type Metric {
+  key: String!
+  ratio: Float
+  value: Float!
+}
+
+type Metrics {
+  followers: Int
+  following: Int
+  avgEngagement: Float
+  avgLikes: Float
+  avgComments: Float
+  storyReach: Float
+  staticReach: Float
+  numOfPosts: Int
+  avgVideoViews: Float
+  avgReach: Float
+  subscribers: Int
+  totalVideos: Int
+  totalViews: Int
+}
+
+type MetricsConfig {
+  code: String!
+  label: String!
+  type: MetricType!
+  multiplier: Int!
+}
+
+input MetricsConfigInput {
+  code: String!
+  label: String!
+  type: MetricType!
+  multiplier: Int!
+}
+
+type MetricsObject {
+  key: String!
+  value: String!
+}
+
+enum MetricType {
+  INTERNAL
+  EXTERNAL
+}
+
+type Mutation {
+  addAddress(input: AddressInput!): UserAddress
+  updateAddress(id: ID!, input: AddressInput!): UserAddress
+  removeAddress(id: ID!): BaseResponse
+  sendLeadNotification(input: SendleadNotificationInput!): BaseResponse!
+  initUpload(input: InitUploadInput!): InitResponse!
+  finishUpload(input: FinishUploadInput!): Asset!
+  acceptCampaign(input: AcceptCampaignInput!): CampaignInfo!
+  applyToCampaign(input: ApplyCampaignInput!): CampaignInfo!
+  submitDeliverable(input: DeliverableSubmissionInput!): BaseResponse!
+  revokeDeliverableSubmission(submissionId: ID!): BaseResponse!
+  updateDeliverable(input: DeliverableSubmissionInput!): BaseResponse!
+  briefViewed(shortlistUserId: ID!): BaseResponse!
+  campaignInitiatePayout(shortlistUserId: ID!, mode: CampaignPaymentMode!): CampaignInitiatePayoutResponse!
+  campaignVoucherViewed(shortlistUserId: ID!, voucherType: CampaignVoucherType!): BaseResponse!
+  createInfluencer(input: InfluencerInput!): Influencer
+  updateInfluencer(id: ID!, input: InfluencerInput!): Influencer
+  updateApplicantStatus(input: UpdateApplicantStatusInput!): BaseResponse!
+  userCampaignApplicationViewed(input: UserCampaignApplicationViewedInput!): BaseResponse!
+  refreshInfluencerData(platform: SocialNetworkType!, handle: String!): BaseResponse!
+  bookmarkCampaignPost(campaignId: ID!, shortCode: ID!, bookmarked: Boolean!): BaseResponse
+  updateCampaign(id: ID!, input: CampaignInput!): CMCampaign!
+  createCampaign(input: CampaignInput!): CMCampaign!
+  campaignAllowApplicants(id: ID!, allow: Boolean!): BaseResponse
+  addRemoveBrandUsersToCampaign(campaignId: ID!, brandUserIds: [ID!]!, action: CampaignBrandUserAction!): BaseResponse
+  sendCampaignBrief(input: CampaignBriefShortlistInput!): BaseResponse
+  linkUnlinkCampaignShortlist(input: CampaignBriefShortlistInput!, action: CampaignShortlistAction!): BaseResponse
+  shareUnshareCampaignShortlist(campaignId: ID!, shortlistIds: [ID!]!, action: CampaignShortlistShareAction!): BaseResponse
+  createCampaignShortlist(campaignId: ID!, input: CampaignShortlistInput!): CampaignShortlist
+  editShortlistName(shortlistId: ID!, input: CampaignShortlistInput!): BaseResponse
+  resendInvite(input: ResendInviteInput!): BaseResponse
+  updateShortlistedStatus(input: UpdateShortlistedStatusInput!): BaseResponse
+  changeBetweenShortlists(input: ChangeBetweenShortlistsInput!): BaseResponse
+  sendCampaignShortlistReminderNotification(input: CampaignShortlistReminderNotificationInput!): BaseResponse
+  sendCampaignBriefUpdateNotification(input: CampaignBriefUpdateNotificationInput!): BaseResponse
+  updateUcaFeedback(campaignId: ID!, campaignProfileId: ID!, feedback: String!): BaseResponse
+  deescalateMessage(id: ID!): BaseResponse
+  escalateMessage(id: ID!): BaseResponse
+  sendMessage(input: CreateMessageInput): Message
+  userCampaignMessages(before: String, after: String, size: Int = 10, query: SearchQuery!): MessageConnection!
+  markUserMessagesAsRead(shortlistedUserId: ID!, ids: [ID!]): BaseResponse
+  markUserMessagesAsUnread(shortlistedUserId: ID!, ids: [ID!]): BaseResponse
+  deescalateUserMessages(shortlistedUserId: ID!): BaseResponse
+  payCampaignUser(input: PayCampaignUserInput): PayCampaignUserResponse
+  updateAmountForCampaignUser(input: UpdateAmountForCampaignUserInput!): CampaignUser
+  updateAmountForShortlist(input: UpdateAmountForShortlist!): BaseResponse
+  sendInvoiceToFinance(invoiceId: ID!): CampaignUser
+  saveRatingForCampaignUser(input: RatingForCampaignUserInput!): CampaignUser
+  generateInvoice(input: GenerateInvoiceInput!): CampaignUser
+  createCampaignPlan(input: CampaignPlanInput!): CampaignPlan!
+  updateCampaignPlan(input: CampaignPlanInput!): CampaignPlan!
+  createCampaignPlanDeliverable(input: CampaignPlanDeliverableInput!): CampaignPlanDeliverable!
+  removeCampaignPlanDeliverable(id: Int!): CampaignPlanDeliverable!
+  addItemToCart(item: CartItemInput!): Cart!
+  removeItemFromCart(itemId: ID!): Cart
+  moveToWishlist(itemId: ID!): Cart
+  addLinkToShop(input: ShopLinkInput!): LinkAsset!
+  removeLinkFromShop(id: ID!): BaseResponse!
+  addBrandToShop(sellerBrandId: ID!): BrandAsset!
+  removeBrandFromShop(id: ID!): BaseResponse!
+  addCollectionToShop(collectionId: ID!): CollectionAsset!
+  removeCollectionFromShop(id: ID!): BaseResponse!
+  initDeviceV2(input: InitDeviceInput!): InitDeviceResp!
+  launchReferEvent(input: LaunchReferEventInput!): BaseResponse!
+  checkoutDigitalProduct(input: DigitalProductCartInput!): DigitalProductCart!
+  refreshDigitalProductCart(input: DigitalProductCartInput!): DigitalProductCart!
+  createCourse(input: CourseInput!): DigitalProduct!
+  updateCourse(id: ID!, input: CourseInput!): DigitalProduct!
+  createCourseItem(input: CourseItemInput!): CourseItem!
+  updateCourseItem(id: ID!, input: CourseItemInput!): CourseItem!
+  createSimpleProduct(input: SimpleProductInput!): DigitalProduct!
+  createLink(input: LinkInput!): DigitalProduct!
+  createExclusiveContent(input: ExclusiveContentInput!): DigitalProduct!
+  createEvent(input: EventInput!): DigitalProduct!
+  createLiveVideoChat(input: LiveVideoChatInput!): DigitalProduct!
+  updateSimpleProduct(id: ID!, input: SimpleProductInput!): DigitalProduct!
+  updateLink(id: ID!, input: LinkInput!): DigitalProduct!
+  updateExclusiveContent(id: ID!, input: ExclusiveContentInput!): DigitalProduct!
+  updateLiveVideoChat(id: ID!, input: LiveVideoChatInput!): DigitalProduct!
+  updateEvent(id: ID!, input: EventInput!): DigitalProduct!
+  generateDynamicLink(input: DynamicLinkInput!): DynamicLink!
+  formSubmit(elements: [FormElementInput!]): BaseResponse!
+  markHighlightItemViewed(itemId: ID!): BaseResponse
+  shuffleSuggestion(size: Int = 4): [FollowCard]
+  updateAmazonStoreLink(storeLink: String!): BaseResponse!
+  updateInventory(id: ID!, input: InventoryUpdateInput!): Inventory!
+  createInvoiceFromTool(input: ToolInvoiceInput!): ToolInvoice!
+  updateInvoiceFromTool(id: ID!, userId: String!, status: ToolInvoicePaymentStatus!): ToolInvoice!
+  createJob(jobInput: JobInput!): Job!
+  requestAadhaarOtp(input: AadhaarAuthInput!): EkycVerificationResponse!
+  verifyAadhaarOtp(input: AadhaarAuthInput!): EkycVerificationResponse!
+  verifyPanCard(input: PanCardAuthInput!): EkycVerificationResponse!
+  verifyBankAccount(input: BankAccAuthInput!): EkycVerificationResponse!
+  verifyGstDetails(gstin: String!): EkycVerificationResponse!
+  createLeaderboardConfig(input: LeaderboardConfigInput!): LeaderboardConfig
+  updateLeaderboardConfig(code: ID!, input: LeaderboardConfigInput!): LeaderboardConfig
+  createLeaderboardGroupConfig(input: LeaderboardGroupConfigInput!): LeaderboardGroupConfig
+  updateLeaderboardGroupConfig(code: ID!, input: LeaderboardGroupConfigInput!): LeaderboardGroupConfig
+  createLead(input: LeadInput!): Lead!
+  updateLead(id: ID!, input: LeadInput!): Lead!
+  optInWhatsapp: Boolean
+  optOutWhatsapp: Boolean
+  registerThirdpartyToken(input: ThirdpartyTokenInput!): ThirdpartyToken!
+  initiateReturn(input: ReturnOrderLineInput!): OrderLine!
+  createPartner(input: CreatePartnerInput!): PartnerEntry
+
+  """ These are id based updates required for admin portal"""
+  updatePartnerContract(input: UpdateContractInput!): BaseResponse
+  updatePartner(id: ID!, input: UpdatePartnerInput!): BaseResponse
+
+  """ these are non id based updates reqd by user exposed UI's"""
+  updatePartnerDetails(input: UpdatePartnerInput!): BaseResponse
+  updatePartnerContractDetails(input: PartnerContractInput!): BaseResponse
+  initiatePaymentForAffiliateOrder(input: InitiateAffiliatePaymentInput!): InitiatePaymentResp!
+  removePaymentAccount(id: ID!): PaymentAccount!
+  initiatePayout(invoiceId: ID!): BaseResponse
+  addPaymentAccount(input: PaymentAccountInput!): PaymentAccount!
+  pollSubmit(groupCode: ID!, id: ID!, pollOptionId: ID!): Poll!
+  AddToLikedProductList(productID: String!): WishlistItems!
+  RemoveFromLikedProductList(productID: String!): WishlistItems!
+  CreateAffiliateProduct(input: AffiliateProductInput!): Product!
+  createRewardLadder(input: RewardLadderInput!): RewardLadder
+  updateRewardLadder(id: ID!, input: RewardLadderInput!): RewardLadder
+  createRewardLadderGroup(input: RewardLadderGroupConfigInput!): RewardLadderGroupConfig
+  updateRewardLadderGroup(id: ID!, input: RewardLadderGroupConfigInput!): RewardLadderGroupConfig
+  SaveItemForLater(listingId: ID!, itemId: ID): SellerListing!
+  DeleteSavedItem(listingId: ID!): SellerListing!
+  MoveSavedItemToCart(listingId: ID!, skuId: ID!, productId: ID!): SellerListing!
+  updateListing(id: ID!, input: SellerListingUpdate!): SellerListing!
+  markSellerShipmentPacked(shipmentId: ID!): SellerShipment!
+  markSellerShipmentUnfullfillable(shipmentId: ID!, itemIds: [ID!]): SellerShipment!
+  cancelSellerShipmentItems(shipmentId: ID!, itemIds: [ID!]): SellerShipment!
+  createShippingManifest(input: ShippingManifestInput!): ShippingManifest!
+  discardShippingManifest(shippingManifestId: ID!): ShippingManifest!
+  closeShippingManifest(shippingManifestId: ID!): ShippingManifest!
+  addShipmentsToShippingManifest(shipmentIds: [ID!]!, shippingManifestId: ID!): ShippingManifest!
+  removeShipmentsFromShippingManifest(shipmentId: [ID!]!, shippingManifestId: ID!): ShippingManifest!
+  generateManifest(shippingManifestId: ID!): Asset!
+  createPicklist(input: PicklistInput!): Picklist!
+  discardPicklist(picklistId: ID!): Picklist!
+  initPickPicklist(picklistId: ID!): Picklist!
+  packPicklist(picklistId: ID!): Picklist!
+  addShipmentsToPicklist(shipmentIds: [ID!]!, picklistId: ID!): Picklist!
+  removeShipmentsFromPicklist(shipmentId: [ID!]!, picklistId: ID!): Picklist!
+  generatePicklistCSV(pickListId: ID!): Asset!
+  generateManifestCSV(shippingManifestId: ID!): Asset!
+  generatePicklist(pickListId: ID!): Asset!
+  connectShopifyStore(input: ShopifyAuthInput!): ShopifyAuthResponse!
+  disconnectShopifyStore(input: ShopifyAuthInput!): ShopifyAuthResponse!
+  createSmartCampaign(input: SmartCampaignInput!): SmartCampaign
+  updateSmartCampaign(id: ID!, input: SmartCampaignInput!): SmartCampaign
+  addSocialAccount(input: SocialAccountInput!): SocialAccount
+  removeSocialAccount(input: SocialAccountInput!): BaseResponse
+  unlinkSocialAccountById(id: ID!): BaseResponse
+  refreshSocialAccountByPlatform(platform: SocialNetworkType!): BaseResponse
+  updateUserAccount(id: ID!, input: UserAccountInput!): UserAccount!
+  updateDevice(input: DeviceUpdateInput!): DeviceInfo
+  updateAccount(input: UserAccountInput!): UserAccount!
+  linkUserEmailViaOTP(input: EmailLinkInput!): UserAccount!
+  changePassword(input: ChangePasswordRequest!): UserAccount!
+  blockUserAccount(reason: String): BaseResponse
+  requestOTP(input: OTPRequestInput!): OTPResponse!
+  requestOTPForSocialAccount(input: SocialAccountInput!): OTPResponse!
+  loginV2(input: UserAuthInputV2!): UserAuthResponse!
+  linkPhoneViaOtp(input: PhoneVerifyInput!): UserAuthResponse
+  signupV2(input: UserAuthInputV2!): UserAuthResponse!
+  logoutV2: UserAuthResponse!
+  initTrueCallerRequest: TrueCallerResponse!
+  getThirdPartyAccessToken(input: ThirdPartyAccessTokenInput!): ThirdPartyAccessTokenResponse!
+  generateSSOTokenForUser: UserSSOResponse!
+  generateSSOTokenForUserV2: UserSSOResponse!
+  inviteMember(input: MemberInviteInput!): MemberInviteRequest!
+  reInviteMember(inviteCode: ID!): MemberInviteRequest
+  createResetPasswordRequest(email: String!, domain: String): ResetPasswordRequest
+  resetPassword(code: String!, password: String!): ResetPasswordRequest
+  AddToWishList(productID: String!): WishlistItems!
+  RemoveFromWishList(productID: String!): WishlistItems!
+  updateOutputForm(id: ID!, outputForm: OnlineFormInput!): WorkItem!
+  cancelWorkItem(id: ID!, reasonCode: CancellationReason!, reasonText: String): WorkItem!
+  markDoneWorkItem(id: ID!, deliveryRemarks: String): WorkItem!
+}
+
+type NamespaceConfiguration {
+  namespace: String!
+  enabled: Boolean
+  planType: NamespacePlan
+  configurations: [ContractCongifuration!]
+}
+
+input NamespaceConfigurationInput {
+  namespace: String!
+  enabled: Boolean
+  planType: NamespacePlan
+  configurations: [ContractCongifurationInput!]
+}
+
+enum NamespacePlan {
+  PAID
+  FREE
+}
+
+type Navbars {
+  top: [PageLink!]
+  bottom: [PageLink!]
+  hamburger: [PageLink!]
+  footer: [PageLink!]
+}
+
+type NonDigitalProductFulfillmentDetails implements FulFillmentDetails {
+  resolverType: String!
+  address: ShipmentAddress
+}
+
+type NoResultWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+}
+
+enum OnboardingStatus {
+  REJECTED
+  ACCEPTED
+  IN_PROGRESS
+  ONBOARDED
+}
+
+type OnlineForm {
+  sections: [OnlineFormSetion!]!
+}
+
+type OnlineFormField {
+  inputType: OnlineFormFieldType!
+  fieldName: String!
+  value: String
+  labelText: String
+  placeholderText: String
+  defaultValue: String
+  properties: Map
+  selectOptions: [String]
+  hint: String
+  mandatory: Boolean!
+  errorMessage: String
+  staticIcon: Asset
+  activeIcon: Asset
+  errorIcon: Asset
+  minValue: Float
+  maxValue: Float
+}
+
+input OnlineFormFieldInput {
+  fieldName: String!
+  value: String!
+}
+
+type OnlineFormFieldSubmission {
+  inputType: OnlineFormFieldType
+  fieldName: String
+  value: String
+}
+
+enum OnlineFormFieldType {
+  USER_PHONE
+  USER_NAME
+  TEXT
+  BOOLEAN
+  DATE
+  DATE_TIME
+  FILE
+  IMAGE
+  VIDEO
+  NUMBER
+  SELECT
+}
+
+input OnlineFormInput {
+  fields: [OnlineFormFieldInput!]!
+}
+
+type OnlineFormSetion {
+  fields: [OnlineFormField!]!
+  headingText: String
+}
+
+type Order {
+  id: ID!
+  address: ShipmentAddress
+  orderDate: String
+  userPhone: String!
+  confirmationAsset: Asset
+  storeOrderId: String!
+  chargeableAmount: Float!
+  breakup: Map
+  total: Map
+  lines: [OrderLine!]!
+}
+
+type OrderConnection {
+  edges: [OrderEdge!]!
+  pageInfo: PageInfo!
+}
+
+type OrderEdge {
+  cursor: String!
+  node: Order!
+}
+
+type OrderItem {
+  id: ID!
+  name: String
+  orderLineId: String!
+  orderId: String!
+  storeOrderId: String!
+  productId: ID!
+  skuId: ID!
+  rank: Int!
+  skuThumbnail: Asset
+  title: String
+  subTitle: String
+  sellingPrice: Float
+  status: String
+  isAffiliateProduct: Boolean!
+  affiliatePartner: AffiliatePartner
+}
+
+type OrderItemWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  data: OrderItem!
+}
+
+type OrderLine {
+  id: ID!
+  quantity: Int!
+  paymentMode: PaymentMode!
+  storeOrderId: String!
+  itemGroups: [OrderLineItemGroup!]
+  orderProduct: OrderProduct!
+  fulfillmentOwnerType: FulfillmentOwnerType
+  fulfillmentOwnerId: ID
+  estimatedDeliveryDays: Int
+  influencerId: Int
+}
+
+type OrderLineItemGroup {
+  groupId: ID!
+  groupType: String!
+  status: OrderStatus
+  refundStatus: OrderStatus
+  fulfillmentDetails: FulFillmentDetails
+  pickupDetails: PickupDetails
+  refundDetails: RefundDetails
+  breakup: Map
+  total: Map
+  chargeableAmount: Float!
+  refundableAmount: Float!
+  displayName: String!
+  trackingLink: String
+  groupTrackingDetails: [GroupTrackingDetail!]
+  flags: Map
+  quantity: Int!
+  notices: [String!]
+  reviewTask: CustomerReviewTask
+  scratchCardBanner: RewardBanner
+  returnTill: String
+  exchangeTill: String
+  refundPaymentAccountId: Int
+  isBackToSourceRefund: Boolean
+}
+
+type OrderProduct {
+  productId: ID!
+  slug: String!
+  name: String!
+  image: Asset!
+  sellingPrice: Float!
+  mrp: Float!
+  variantOptions: Map
+  outputAsset: Asset
+  digitalProductType: String
+  productDetails: ProductDetails
+}
+
+enum OrderStatus {
+  CREATED
+  CANCELLED
+  DECLINED
+  CONFIRMED
+  PACKED
+  SHIPPED
+  DELIVERED
+  DISPATCHED
+  WIP
+  RETURN_INITIATED
+  REFUNDED
+  RTO
+  REFUND_PENDING
+  RETURNED
+  REFUND_IN_PROGRESS
+  PICKED_UP
+  DELIVERY_ATTEMPT_FAILED
+  OUT_FOR_DELIVERY
+  OUT_FOR_PICKUP
+  RETURN_IN_PROGRESS
+}
+
+input OTPRequestInput {
+  operation: OTPRequestOperation!
+  targetMode: OTPRequestTarget!
+  identity: String!
+  countryCode: String!
+  socialAccount: SocialAccountInput
+}
+
+enum OTPRequestOperation {
+  LINK
+  VERIFY
+  LOGIN
+  SIGNUP
+}
+
+enum OTPRequestTarget {
+  PHONE
+  EMAIL
+}
+
+type OTPResponse {
+  status: ResponseStatus!
+  whatsappOptin: Boolean
+  whatsappOptinMessage: String
+  requestId: ID!
+  operation: OTPRequestOperation!
+  existingHandle: Boolean
+  message: String
+  identity: String
+  ctas: [CtaEntry!]
+}
+
+type Page {
+  title: String!
+  variantName: String
+  sourceType: String
+  sourceId: String
+  filters: [FilterField!]
+  filteredCount: Int
+  navBarItems: [PageLink!]
+  layout: PageLayoutConnection
+}
+
+input PageContextInput {
+  campaignParams: String
+  referrer: ReferrerInput
+  meta: PageMetaInput
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  total: Int!
+  totalFiltered: Int!
+  startCursor: String
+  endCursor: String
+  pageNo: Int
+}
+
+type PageLayoutConnection {
+  pageInfo: PageInfo
+  edges: [WidgetEdge!]
+}
+
+type PageLink {
+  code: String!
+  name: String!
+  count: Int
+  coverImageUrl: String
+  tabImageUrl: String
+  slug: String!
+  default: Boolean!
+  selected: Boolean!
+  hasContent: Boolean!
+  label: String
+  forceRefresh: Boolean!
+  subLinks: [PageLink!]
+  selectSubLinkIndex: Int
+  iconUrl: String
+  filtersEnabled: Boolean!
+  disabledIconUrl: String
+  variantName: String
+}
+
+input PageMetaInput {
+  isEndStream: Boolean
+}
+
+input PageQuery {
+  filters: [FilterFieldInput!]
+}
+
+input PanCardAuthInput {
+  number: String!
+  name: String!
+  dob: String!
+}
+
+type PanCardDetails {
+  number: String
+  name: String
+  dob: String
+  isVerified: Boolean!
+}
+
+enum Partner {
+  AMAZON
+  FLIPKART
+  CASHIFY
+}
+
+type PartnerBrand {
+  id: ID!
+  brand: Brand!
+  commisionText: String
+  url: String
+}
+
+type PartnerConnection {
+  edges: [PartnerEdge!]
+  pageInfo: PageInfo!
+}
+
+type PartnerContract {
+  type: ContractType!
+  status: PartnerContractStatus!
+  onboardingStatus: OnboardingStatus!
+  plan: String
+  startTime: Int
+  endTime: Int
+  namespaces: [NamespaceConfiguration!]
+}
+
+input PartnerContractInput {
+  contractType: ContractType!
+  onboardingStatus: OnboardingStatus
+}
+
+enum PartnerContractStatus {
+  ACTIVE
+  INACTIVE
+}
+
+type PartnerEdge {
+  node: PartnerEntry!
+  cursor: String
+}
+
+type PartnerEntry {
+  id: ID!
+  name: String!
+  contracts: [PartnerContract!]
+  logo: Asset
+}
+
+input PartnerProfileInput {
+  partnerId: ID
+  phone: String
+  visitedDemo: Boolean
+  assignedCampaignIds: [Int!]
+}
+
+type PartnerUserProfile {
+  id: ID!
+  webengageUserId: String
+  partner: PartnerEntry
+}
+
+input PayCampaignUserInput {
+  shortlistUserId: ID!
+  campaignId: ID!
+  invoiceId: ID!
+}
+
+type PayCampaignUserResponse {
+  status: ResponseStatus
+  message: String
+}
+
+interface PaymentAccount {
+  id: ID!
+  type: PaymentAccountType!
+  accountName: String!
+  accountNickName: String
+  enabled: Boolean
+}
+
+type PaymentAccountGroup {
+  code: PaymentAccountType!
+  paymentAccounts: [PaymentAccount!]
+}
+
+input PaymentAccountInput {
+  type: PaymentAccountType!
+  upiId: String
+  phoneNumber: String
+  ifscCode: String
+  bankName: String
+  branchName: String
+  accountName: String
+  accountNickName: String
+  accountNumber: String
+  accountNumberConfirm: String
+}
+
+enum PaymentAccountType {
+  BANK
+  PAYTM
+  UPI
+}
+
+enum PaymentMode {
+  COD
+  ONLINE
+  PAYLATER
+}
+
+type PaymentOption {
+  id: ID!
+  pgCode: String!
+  method: String!
+  code: String!
+  name: String!
+  meta: Map
+  offerText: String
+  offerId: Int
+  offerTextColor: String
+  offerIcon: String
+  disclaimerText: String
+  preferredPaymentMode: Boolean
+  icon: String!
+  methodEnabled: Boolean
+  selected: Boolean
+}
+
+enum PaymentOptionCode {
+  COD
+  PAYTM
+  PHONEPE
+  BHIM
+  RAZORPAY
+  RAZORPAY_GOOGLE_PAY
+  RAZORPAY_UPI
+  RAZORPAY_WALLET
+  RAZORPAY_NET_BANKING
+  RAZORPAY_NET_BANKING_OTHERS
+  RAZORPAY_CC
+  RAZORPAY_CC_ADD
+  RAZORPAY_UPI_COLLECT
+  RAZORPAY_UPI_COLLECT_ADD
+}
+
+type PaymentOptionGroup {
+  name: String!
+  options: [PaymentOption!]
+  offerText: String
+  offerId: Int
+}
+
+enum PaymentStatus {
+  SUCCESS
+  FAILURE
+  INITIATED
+}
+
+type PayoutData {
+  isComplete: Boolean!
+  isVerified: Boolean!
+  pendingForApproval: Boolean!
+  isGstOpted: Boolean!
+  gstDetail: KycDocumentDetail
+  aadhaarDetail: KycDocumentDetail
+  pancardDetails: PanCardDetails
+  bankDetails: BankDetails
+  notice: String
+}
+
+type PayoutResponse {
+  status: PaymentStatus!
+  message: String
+}
+
+type PayoutVoucher {
+  brand: String
+  couponCode: String!
+  amount: Int
+  minBillAmount: Int
+  expiryDate: String
+  sentTime: String
+  triggerTime: String
+}
+
+type PaytmAccount implements PaymentAccount {
+  id: ID!
+  type: PaymentAccountType!
+  enabled: Boolean
+  accountName: String!
+  accountNickName: String
+  phone: String!
+}
+
+type PersonalisedVideo {
+  socialNetworkType: SocialNetworkType!
+  icon: Asset
+}
+
+type PgMetadata {
+  gateway: String
+  meta: JSON
+}
+
+input PGMetaDataInput {
+  gateway: String!
+  pgMeta: JSON
+}
+
+input PhoneVerifyInput {
+  id: ID!
+  otp: String!
+  whatsappOptin: Boolean
+}
+
+type Picklist {
+  id: ID!
+  createdOn: String!
+  createdBy: String!
+  status: String!
+  sellerWarehouseId: ID
+  shipmentsCount: Int
+  shipments: [SellerShipment!]
+  asset: Asset
+  csvAsset: Asset
+}
+
+type PicklistConnection {
+  pageInfo: PageInfo
+  edges: [PicklistEdge!]
+}
+
+type PicklistEdge {
+  cursor: String!
+  node: Picklist!
+}
+
+input PicklistInput {
+  sellerWarehouseId: String!
+}
+
+type PickupDetails {
+  estimatedPickup: String
+  pickupAddress: ShipmentAddress
+  whileReturningPickupAddress: ShipmentAddress
+}
+
+type PieChart {
+  pies: [Metric!]!
+}
+
+type Pincode {
+  id: ID!
+  areaCode: String
+  areaName: String
+  city: City
+  state: State
+  country: Country
+  localities: [Locality]
+  serviceable: Boolean!
+  latitude: Float
+  longitude: Float
+}
+
+type Poll {
+  id: ID!
+  banner: Asset
+  title: String!
+  groupCode: ID!
+  options: [PollOption!]
+  status: PollStatus!
+  answered: Boolean!
+  answerDeclared: Boolean!
+  statusMessage: String
+  tncLink: String
+  tncText: String
+  countdown: Countdown
+}
+
+type PollHighlightItem implements HighlightItem {
+  id: ID!
+  seen: Boolean!
+  poll: Poll!
+  text: String
+  subText: String
+  actionText: String
+  actionLink: String
+  timestampText: String!
+  shareLink: String
+  live: Boolean!
+}
+
+type PollOption {
+  id: ID!
+  text: String!
+  selected: Boolean!
+  currentCount: String
+  answer: Boolean!
+  asset: Asset
+}
+
+enum PollStatus {
+  ACTIVE
+  ENDED
+}
+
+type PollWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  poll: Poll!
+}
+
+input PopupInput {
+  title: String
+  ctaText: String
+  messages: [String!]
+}
+
+type Post {
+  thumbnail: String
+  platform: SocialNetworkType!
+  handle: String!
+  url: String!
+  metrics: PostMetrics
+}
+
+type PostMetrics {
+  likes: InsightData
+  comments: InsightData
+  views: InsightData
+}
+
+type PostsCounts {
+  images: Int
+  stories: Int
+  videos: Int
+  reels: Int
+  feeds: Int
+}
+
+type PPIdCheckResponse {
+  available: Boolean!
+}
+
+type PredictInfluencerCount {
+  nanoCount: Int
+  microCount: Int
+  macroCount: Int
+}
+
+input predictInfluencerCountInput {
+  budget: Float
+  story: Int
+  reel: Int
+  image: Int
+  video: Int
+  carousel: Int
+}
+
+type Product {
+  id: ID!
+  name: String!
+  brand: String
+  brandImageUrl: String
+  image: Asset!
+  images: [Asset!]
+  skus: [Sku!]
+  runningDiscount: Float
+  status: String!
+  outOfStock: Boolean!
+  productType: ProductType
+  isWishlisted: Boolean!
+  productFlag: ProductFlagInfo
+  label: ProductLabelInfo
+  otherVariantsText: String
+  fomoText: Text
+  caption: Text
+  defaultSku: Sku
+  mrp: Float!
+  mrpText: String
+  discount: Float!
+  discountText: String
+  minimumSellingPrice: Float!
+  minimumSellingPriceText: String
+  recoInfo: Map
+  hashTags: [HashTag!]
+  isAffiliateProduct: Boolean!
+  affiliatePartner: AffiliatePartner
+  rating: Float
+  commissionText: String
+}
+
+type ProductBadge {
+  url: String
+  value: String
+}
+
+type ProductCategory {
+  id: ID!
+  code: String!
+  name: String!
+  coverImage: Asset
+  subCategories: [ProductCategory!]
+  productTypes: [ProductType!]
+}
+
+type ProductCompact {
+  id: ID!
+  name: String!
+  image: Asset
+  mrp: Float!
+  mrpText: String
+  discount: Float!
+  discountText: String
+  minimumSellingPrice: Float!
+  minimumSellingPriceText: String
+  runningDiscount: Float
+  outOfStock: Boolean!
+  online: Boolean!
+  pinToTop: Boolean!
+  action: Button!
+  productFlags: ProductFlagInfo
+  label: ProductLabelInfo
+  otherVariantsText: String
+  fomoText: String
+  isWishlisted: Boolean!
+  rating: Float
+}
+
+union ProductDetails = EventDetails
+
+type ProductFlagInfo {
+  flagDisplayText: String
+  flagIcon: String
+  flagColorGradient: ColorGradient
+}
+
+type ProductLabelInfo {
+  labelCode: String!
+  labelDisplayText: String
+  labelIcon: String
+  labelColorGradient: ColorGradient
+}
+
+enum ProductMetaKey {
+  ICON
+  BLURRED_IMAGE
+  TEASER_VIDEO_THUMBNAIL
+  IMAGE
+  VIDEO
+  TEASER_VIDEO
+  ICON_ID
+  BLURRED_IMAGE_ID
+  TEASER_VIDEO_ID
+  IMAGE_ID
+  VIDEO_ID
+  LINK
+  SOCIAL_NETWORK
+  VIDEO_CHAT_SERVICE
+  OUTPUT_CONTENT_TYPE
+  PAYLATER
+  NO_OF_SPEAKERS
+  COURSE_ITEMS
+  CONTENT_SUMMARY
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+  DRAFT
+  DISCARDED
+}
+
+type ProductType {
+  id: ID!
+  code: String!
+  name: String!
+  category: ProductCategory
+}
+
+type ProductWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  cursor: String
+  catalogId: ID
+  data: Product!
+}
+
+interface Profile {
+  id: ID!
+}
+
+type ProfileCompletionData {
+  profileCompleted: Boolean!
+  profileCompletionPercentage: Float!
+  instagramLinked: Boolean!
+  youtubeLinked: Boolean!
+}
+
+type ProfileCompletionWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  aspectRatio: Float
+  data: ProfileCompletionData!
+}
+
+type ProfileInsight {
+  followersInfo: InsightData
+  impressionsInfo: InsightData
+  profileViewsInfo: InsightData
+  reachInfo: InsightData
+  cmProfileViewsInfo: InsightData
+  engagement: Float
+  posts: InsightData
+  averageReach: Float
+  averageLikes: Float
+  averageComments: Float
+}
+
+enum ProfileType {
+  CREATOR
+  BUSINESS
+  THEME_PAGE
+  OTHER
+}
+
+type Query {
+  pincodeWithLocality(id: ID!): Pincode
+  AppNotification(before: String, after: String, size: Int = 10): AppNotificationConnection!
+  campaignInfo(id: ID!): CampaignInfo!
+  fetchDeliverablesForCampaign(shortlistUserId: ID!): CampaignDeliverables!
+  fetchDeliverableForCampaign(shortlistUserId: ID!, deliverableId: ID!): CampaignDeliverable!
+  bigBossCampaigns: BigBossCampaigns!
+  fetchCampaignParticipants(id: ID!, cursor: String): CampaignInfluencerConnection!
+  fetchCampaignPosts(id: ID!, cursor: String): CampaignPostConnection!
+  fetchShortlistedUserBriefInfo(shortlistedUserId: Int!, briefId: Int!): ShortlistBriefInfo
+  fetchCampaignVouchers(groupType: CampaignGroupType!, codes: [ID!], after: String, size: Int = 10): CampaignVoucherConnection
+  campaignCount: CampaignCount
+  earningDashboardVouchers(after: String, size: Int = 10): CampaignVoucherConnection!
+  earningDashboardInvoices(after: String, size: Int = 10): CampaignInvoiceConnection!
+  locations(searchPhrase: String!, after: String, size: Int = 10): LocationConnection
+  searchCampaignPlatforms(before: String, after: String, size: Int = 10, query: SearchQuery): CampaignPlatformConnection
+  searchCampaignCategories(before: String, after: String, size: Int = 10, query: SearchQuery): CampaignCategoryConnection
+  searchInfluencersV2(before: String, after: String, size: Int = 10, query: SearchQuery): InfluencerConnection
+  searchInfluencersInCampaignShortlist(before: String, after: String, size: Int = 10, query: SearchQuery): InfluencerConnection
+  getInfluencer(id: ID!): InfluencerWithAppData!
+  fetchCampaignProfilePerformance(platform: SocialNetworkType!, handle: String!): [CpPerformance!]
+  campaign(id: ID!): CMCampaign!
+  dashboardCampaigns(before: String, after: String, size: Int = 10, query: SearchQuery): CMCampaignConnection!
+  campaignShortlists(campaignId: ID!, flags: CampaignShortlistFlags): CampaignShortlistEnriched!
+  campaignSharedShortlists(campaignId: Int, shareId: String, shortlistId: Int): CampaignShortlistEnriched!
+  campaignShortlistedUsers(filter: CampaignShortlistedUserFilter!): CampaignShortlistedUserConnection!
+  sharedCampaign(shareId: ID!): CMCampaign!
+  campaignShortlistFilterCount(shortlistId: ID!): CampaignShortlistFilterCount
+  getCampaignDeliverableMaxEndTime(campaignId: ID!): campaignDeliverableMaxEndTimeResponse
+  getCampaignDeliverableManualLinkCountStats(deliverableId: ID!): campaignDeliverableManualLinkCountStatsResponse
+  campaignUsers(query: SearchQuery, after: String, size: Int): CampaignUserConnection!
+  getShortlistedUserPayoutInfo(shortlistUserId: ID!): CampaignUser
+  downloadFinanceReportForDate(date: String!): Job
+  getCampaignPlan(uniqueId: String!): CampaignPlan!
+  predictInfluencerCount(input: predictInfluencerCountInput!): PredictInfluencerCount!
+  fetchUserCart: Cart
+  fetchMyLinks(after: String, size: Int = 10): LinkAssetConnection!
+  fetchMyBrands(after: String, size: Int = 10): BrandAssetConnection!
+  fetchAllBrands(after: String, size: Int = 10): BrandAssetConnection!
+  fetchAvailableBrands(after: String, size: Int = 10): BrandAssetConnection!
+  fetchMyCollections(after: String, size: Int = 10): CollectionAssetConnection!
+  fetchAllCollections(after: String, size: Int = 10, contentCategoryId: Int = -1): CollectionAssetConnection!
+  fetchAvailableCollections(after: String, size: Int = 10, contentCategoryId: Int = -1): CollectionAssetConnection!
+  fetchDigitalProduct(productId: ID!): DigitalProduct!
+  fetchCourseItems(productId: ID!, page: Int = 1, size: Int = 20): CourseItemConnection!
+  fetchCourseItemById(id: ID!): CourseItem!
+  fetchDigiProductsByBucket(hostId: ID!, bucketType: String!, page: Int, size: Int): DigitalProductConnection!
+  getDigitalProductCartCoupons(cartId: ID!): UserCartCoupons
+  fetchEventSlots(input: EventSlotInput!): [EventSlotBucket!]
+  dynamicLink(link: String!): DynamicLink
+  dynamicLinkFromFingerprint(input: DynamicLinkFingerprintInput!): DynamicLink
+  getFAQs(context: String!): FAQResponse!
+  loadGamePage: GamePage!
+  gameMilestoneInfo(gameId: ID!): GameMilestoneInfo!
+  highlight(id: ID!, itemId: String): Highlight
+  inventory(id: ID!): Inventory!
+  inventories(before: String, after: String, size: Int = 10, query: SearchQuery): InventoryConnection!
+  getInvoicesForUserTool(userId: String!, after: String, size: Int = 10): ToolInvoiceConnection!
+  getToolStatsForUser(userId: String!): ToolInvoiceTotalMetaResponse!
+  SearchJobs(before: String, after: String, size: Int = 10, query: SearchQuery): JobConnection!
+  FetchJobProgress(jobId: String!): Job!
+  getLeaderboard(code: ID!): Leaderboard!
+  fetchLeaderboard(code: ID!, after: String, size: Int = 10): LeaderboardConnection!
+  fetchLeaderboardGroupConfig(code: ID!): LeaderboardGroupInfo!
+  getLeaderboardConfig(code: ID!): LeaderboardConfig!
+  getLeaderboardGroupConfig(code: ID!): LeaderboardGroupConfig!
+  userOrders(page: Int = 1, size: Int = 10, version: Int = 1, view: String = "ORDER", storeOrderId: ID): OrderConnection!
+  lineGroupDetails(id: ID!, groupType: String!, groupId: String!): OrderLine!
+  refundDetails(id: ID!, returnQuantity: Int!): OrderLine!
+  loadPageQuery(slug: String!, variant: String, after: String, searchQuery: PageQuery): Page
+  loadPageFilters(slug: String!, searchQuery: PageQuery): [FilterField!]
+  navLinks(page: String): [PageLink!]
+  navBars(page: String): Navbars!
+  hostCatalogNavLinks(postId: ID): [PageLink!]
+  searchPartners(query: SearchQuery, page: Int! = 1, size: Int! = 10): PartnerConnection!
+  paymentAccounts: [PaymentAccountGroup!]
+  paymentAccount(id: ID!): PaymentAccount!
+  findBankBranch(ifsc: String!): BankBranch
+  getRefundMethods: [RefundMethod!]
+  fetchPoll(pollId: ID!): Poll!
+  fetchProductCategoriesTree: [ProductCategory!]
+  fetchProductTypes: [ProductType!]
+  fetchRewardLadder(code: String!): RewardLadder!
+  fetchRewardLadderGroup(code: String!): RewardLadderGroup!
+  fetchRewardLadderGroupRules(code: String!, viewCta: Boolean): RewardLadderGroupRules!
+  searchRewardLadders(query: SearchQuery!, page: Int! = 1, size: Int! = 10): RewardLadderConnection!
+  getRewardLadderConfig(id: ID!): RewardLadder!
+  getRewardLadderGroupConfig(id: ID!): RewardLadderGroupConfig
+  searchRewardLadderGroupConfigs(query: SearchQuery!, page: Int! = 1, size: Int! = 10): RewardLadderGroupConfigConnection!
+  GetSavedItems(page: Int = 1, size: Int = 20): SellerListingConnection
+  seller: Seller
+  sellers(before: String, after: String, size: Int = 10, query: SearchQuery): SellerConnection!
+  sellerDashboard: SellerDashboard!
+  listing(id: ID!): SellerListing!
+  listings(before: String, after: String, size: Int = 10, query: SearchQuery): SellerListingConnection!
+  sellerReportUrl: String
+  sellerShipment(shipmentId: ID!): SellerShipment!
+  sellerShipments(before: String, after: String, size: Int = 10, query: SearchQuery): SellerShipmentConnection!
+  sellerShipmentShippingLabel(shipmentId: ID!): Asset!
+  sellerShipmentInvoice(shipmentId: ID!): Asset!
+  sellerShipmentMergedLabelInvoice(shipmentId: ID!): Asset!
+  generateMergedLabelInvoiceForShipments(shipmentIds: [ID!]): Asset!
+  shippingManifests(before: String, after: String, size: Int = 10, query: SearchQuery): ShippingManifestConnection!
+  shippingManifest(shippingManifestId: ID!): ShippingManifest!
+  picklists(before: String, after: String, size: Int = 10, query: SearchQuery): PicklistConnection!
+  picklist(picklistId: ID!): Picklist!
+  searchSeoInfluencers(after: String, size: Int = 10, query: SearchQuery!): SeoInfluencerConnection!
+  getSeoInfluencer(id: ID!): SeoInfluencer!
+  resolvePageMeta(slug: String!): SeoPageMeta!
+  serviceabilityBySellerWarehouses(input: ServiceabilityInput!): TatResponse!
+  isStoreConnected(shopifySessionToken: ID!): ShopifyAuthResponse!
+  searchSmartCampaigns(before: String, after: String, size: Int = 10, query: SearchQuery): SmartCampaignConnection!
+  getSmartCampaign(code: String!): SmartCampaign!
+  fetchSmartCampaign(id: ID!): SmartCampaign!
+  ticker(slug: String, ppid: String): Ticker
+  isPlixxoDataSynced: DataSyncResponse
+  checkPPIdAvailability(ppId: ID!): PPIdCheckResponse!
+  myAccount: UserAccount!
+  fetchUserAccountByPPId(ppId: String!, clientId: String!): UserAccount!
+  fetchBrandUsers(query: SearchQuery!, page: Int! = 1, size: Int! = 10): UserAccountConnection!
+  searchPartnerUserAccounts(query: SearchQuery, page: Int! = 1, size: Int! = 10): UserAccountConnection!
+  getTrueCallerRequest(id: ID!): TrueCallerResponse!
+  getContentCategories: [ContentCategory!]
+  validateMemberInviteByCode(code: String!): MemberInviteRequest
+  searchMemberInvites(query: SearchQuery!, page: Int! = 1, size: Int! = 10): MemberInviteRequestConnection!
+  validateResetPasswordRequestByCode(code: String!): ResetPasswordRequest
+  getWorkItemDetails(id: ID!): WorkItem!
+  getWorkItemsforHost(statuses: [OrderStatus!]!, before: ID, fetchSize: Int): WorkItemConnection!
+}
+
+enum QuestionType {
+  RATING
+  TEXT
+  MULTISELECT
+  SELECT
+}
+
+type QuizHighlightItem implements HighlightItem {
+  id: ID!
+  seen: Boolean!
+  quiz: Poll!
+  question: String!
+  gradient: ColorGradient
+  options: [QuizOption!]!
+  quizIcon: Asset
+  text: String
+  subText: String
+  actionText: String
+  actionLink: String
+  timestampText: String!
+  shareLink: String
+  live: Boolean!
+}
+
+type QuizOption {
+  id: ID!
+  text: String!
+  selected: Boolean!
+}
+
+input RatingForCampaignUserInput {
+  shortlistUserId: ID!
+  rating: Int
+  comment: String
+}
+
+type ReasonText {
+  text: String
+}
+
+type RecoInfo {
+  model: String
+  personaType: String
+  personaValue: String
+  bucketLabel: String
+}
+
+type ReelVideo {
+  id: ID!
+  title: String
+  description: String
+  asset: Asset!
+}
+
+type ReelVideoWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  aspectRatio: Float
+  data: ReelVideo!
+}
+
+input ReferrerInput {
+  referrerType: String
+  referrerId: ID
+}
+
+type RefundBreakup {
+  amount: Float!
+  sellingPrice: Float!
+  creditConsumed: Int
+  tradeDiscount: Float
+  couponDiscount: Float
+  pgDiscount: Float
+  shippingCharge: Float
+  codCharge: Float
+  quantity: Int!
+  bagDiscount: Float
+}
+
+type RefundDetails {
+  modeOfRefund: String
+  paymentAccount: PaymentAccount
+  refundNotice: String
+  ongoingRefundNotice: String
+}
+
+type RefundMethod {
+  image: Asset!
+  name: String!
+  code: PaymentAccountType!
+}
+
+type ReplySummary {
+  count: Int
+  profilePics: [Asset!]
+  summaryText: String
+}
+
+input ResendInviteInput {
+  campaignId: ID!
+  shortlistId: ID!
+  sendAll: Boolean
+  resendInviteType: ResendInviteType
+  campaignProfileIds: [ID!]
+}
+
+enum ResendInviteType {
+  SHORTLISTED
+  ACCEPTED
+  SEEN
+}
+
+type ResetPasswordRequest {
+  id: ID!
+}
+
+enum ResponseStatus {
+  SUCCESS
+  FAILURE
+}
+
+input ReturnOrderLineInput {
+  id: ID!
+  reasonCode: String!
+  reasonText: String
+  isExchange: Boolean
+  refundAccount: ID
+  returnAddress: ID
+  exchangeSKUId: ID
+  quantity: Int
+  forwardShipmentId: ID
+  paymentAccountId: ID
+}
+
+type ReviewQuestion {
+  id: Int!
+  title: String!
+  data: JSON
+  type: QuestionType
+  order: Int!
+  mandatory: Boolean!
+  answer: String
+}
+
+enum ReviewTaskStatus {
+  ACTIVE
+  COMPLETED
+  EXPIRED
+}
+
+type RewardBanner {
+  icon: String
+  headerText: Text
+  rewardClaimText: Text
+}
+
+type RewardDetails {
+  bgImage: Asset
+  topRewards: [Asset!]
+}
+
+input RewardDetailsInput {
+  title: String
+  assets: [AssetInput!]
+}
+
+type RewardInfo {
+  title: String
+  messages: [String!]
+  ctaText: String
+}
+
+type RewardLadder {
+  id: ID!
+  code: String!
+  selected: Boolean
+  note: String
+  state: RewardLadderState
+  label: String
+  title: String!
+  subTitle: String
+  slug: String!
+  mainImageUrl: String
+  floatingIconUrl: String!
+  instructions: [String!]
+  leaderboardUrl: String
+  inviteEnabled: Boolean
+  inviteLink: String
+  dynamicLink: String
+  levels: [RewardLadderLevel!]
+  topRewardsTitle: String
+  topRewards: [String!]
+  shareCard: RewardLadderShareCard
+  rewardScreenConfig: RewardScreenConfig
+  winnersInfo: WinnersInfo
+  taskIds: [Int!]
+  pageBanner: Asset
+  endTime: String
+  rewardDetails: RewardInfo
+  topRewardAssets: [Asset!]
+  mainImage: Asset
+  winnersImage: Asset
+  lockedImage: Asset
+  saasGroupCollectionId: ID
+  platforms: [String!]
+  topWinnersBackgroundImage: Asset
+  instantPayout: Boolean!
+  slotInfo: SlotInfo
+  ctaText: String!
+  ctaDeepLink: String
+}
+
+type RewardLadderConnection {
+  edges: [RewardLadderEdge!]
+  pageInfo: PageInfo!
+}
+
+type RewardLadderDynamicLinks {
+  challengeLink: String
+  shareCardDynamicLink: String
+  challengeInviteLink: String
+}
+
+type RewardLadderEdge {
+  node: RewardLadder!
+  cursor: String
+}
+
+type RewardLadderGroup {
+  bgImage: Asset
+  title: String
+  type: RewardLadderGroupType!
+  introBanners: [Banner!]
+  rewardLadders: [RewardLadder!]
+  userOngoingTasks: TaskInfo
+  rewardDetails: RewardDetails
+  myLeaderboardStatus: LeaderboardRow
+  groupLeaderboardUrl: String
+}
+
+type RewardLadderGroupConfig {
+  id: ID!
+  name: String
+  groupCode: String!
+  prebuzzCreatives: [Asset!]
+  startTime: Int
+  ctaText: String
+  challengesInfo: [ChallengeInfo!]
+  banners: [Banner!]
+  myRewards: [Banner!]
+  rewardAssets: [Asset!]
+  rewardBg: Asset
+  state: RewardLadderGroupStatus
+  dynamicLink: String
+}
+
+type RewardLadderGroupConfigConnection {
+  edges: [RewardLadderGroupConfigEdge!]
+  pageInfo: PageInfo!
+}
+
+type RewardLadderGroupConfigEdge {
+  node: RewardLadderGroupConfig!
+  cursor: String
+}
+
+input RewardLadderGroupConfigInput {
+  name: String
+  groupCode: String!
+  prebuzzCreatives: [AssetInput!]
+  startTime: String!
+  ctaText: String!
+  challengesInfo: [ChallengeInfoInput!]
+  banners: [BannerInput!]
+  myRewards: [BannerInput!]
+  rewardAssets: [AssetInput!]
+  rewardBg: AssetInput
+  state: RewardLadderGroupStatus
+}
+
+type RewardLadderGroupRules {
+  title: String!
+  introVideo: Asset
+  splashScreen: Asset
+  ambassadorsSection: AmbassadorsSection
+  howItWorks: Asset
+  rewardDetails: RewardDetails
+  ctaText: String
+  code: String!
+  countdown: Countdown
+}
+
+enum RewardLadderGroupStatus {
+  LIVE
+  DISCARDED
+  DRAFT
+  ENDED
+}
+
+enum RewardLadderGroupType {
+  LEAGUE
+}
+
+input RewardLadderInput {
+  taskIds: [Int!]
+  title: String
+  code: String
+  subtitle: String
+  mainImage: AssetInput
+  winnersImage: AssetInput
+  note: String
+  state: RewardLadderStatus
+  rewardDetails: PopupInput
+  topRewards: RewardDetailsInput
+  pageBanner: AssetInput
+  lockedImage: AssetInput
+  endTime: String
+}
+
+type RewardLadderLevel {
+  tasks: [RewardLadderTask!]
+  reward: RewardLadderLevelReward
+  levelComplete: Boolean!
+}
+
+type RewardLadderLevelReward {
+  title: String!
+  messages: [String!]
+  ctaText: String!
+}
+
+type RewardLadderShareCard {
+  primaryColor: String!
+  secondaryColor: String!
+  title: String!
+  subTitle: String
+  iconImage: Asset
+  handle: String!
+  challengeName: String!
+  description: String
+  caption: String!
+  ctaText: String
+  dynamicLink: String
+  text: String
+  showCrown: Boolean!
+}
+
+type RewardLadderState {
+  status: RewardLadderStatus
+  stateImage: Asset
+}
+
+enum RewardLadderStatus {
+  LOCKED
+  OPEN
+  DRAFT
+  DISCARDED
+  ENDED
+}
+
+type RewardLadderTask {
+  id: ID!
+  label: String
+  title: String!
+  subTitle: String
+  state: TaskState!
+  icon: Asset
+  open: Boolean!
+  done: Boolean!
+  endDate: String
+}
+
+type RewardScreenConfig {
+  title: String
+  subTitle: String
+  description: [String!]
+}
+
+type Rule {
+  title: String
+  button: String
+  items: [RuleItem!]
+}
+
+type RuleItem {
+  title: String
+  subTitle: String
+  asset: Asset
+}
+
+enum SaasCollectionType {
+  GROUP
+  NORMAL
+}
+
+input SearchFilter {
+  filterType: String!
+  field: String!
+  value: String!
+  expression: String
+  expressionValue: String
+}
+
+input SearchQuery {
+  filters: [SearchFilter!]
+  orderBy: String
+  orderDirection: String
+}
+
+type SearchResult {
+  ID: ID!
+  type: String
+  title: String
+  subTitle: String
+  image: Asset
+  actionLink: String
+  affiliatePartner: AffiliatePartner
+}
+
+type SearchResultWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  data: [SearchResult!]
+}
+
+type Seller {
+  id: ID!
+  status: String!
+  name: String!
+  companyName: String
+  phone: String
+  address: String
+  city: String
+  state: String
+  country: String
+  pincode: String
+  email: String
+  gstin: String
+  signature: Asset
+  warehouses: [SellerWarehouse!]
+  stores: [SellerStore!]
+}
+
+type SellerBrand {
+  id: ID!
+  brand: Brand!
+  commisionText: String
+  url: String
+}
+
+type SellerConnection {
+  pageInfo: PageInfo
+  edges: [SellerEdge!]
+}
+
+type SellerDashboard {
+  orderCompositon: PieChart
+  orderDistribution: Histogram
+  gmvDistribution: Histogram
+  listingsComposition: [Metric!]
+  earnings: [Metric!]
+}
+
+type SellerEdge {
+  cursor: String!
+  node: Seller!
+}
+
+type SellerListing {
+  id: ID!
+  sellerSkuCode: String!
+  blockedInventory: Int!
+  totalInventory: Int!
+  availableInventory: Int!
+  sellingPrice: Float!
+  status: String!
+  sku: Sku!
+  taxRate: Float
+  hsnCode: String
+}
+
+type SellerListingConnection {
+  pageInfo: PageInfo
+  edges: [SellerListingEdge!]
+}
+
+type SellerListingEdge {
+  cursor: String!
+  node: SellerListing!
+}
+
+input SellerListingUpdate {
+  status: String
+  sellingPrice: Float
+  taxRate: Float
+  hsnCode: String
+}
+
+input SellerMasterInput {
+  name: String!
+  companyName: String!
+  phone: String!
+  address: String!
+  city: String!
+  state: String!
+  country: String!
+  pincode: String!
+  gstin: String!
+  bankAccountNumber: String!
+  pancardAssetId: ID!
+  gstCertificateAssetId: ID!
+  cancelledChequeAssetId: ID!
+  shopifyAccessToken: String!
+  shopifySessionToken: String!
+}
+
+type SellerShipment {
+  id: ID!
+  flow: String!
+  storeOrderId: String!
+  awbNumber: String!
+  courierPartner: String
+  status: String!
+  priority: Int
+  paymentMethod: String!
+  createdOn: String!
+  sla: String
+  pickByTime: String
+  packByTime: String
+  address: ShipmentAddress!
+  items: [SellerShipmentItem!]!
+  actions: [SellerShipmentAction!]!
+}
+
+type SellerShipmentAction {
+  code: String!
+  name: String!
+  description: String!
+  enabled: Boolean!
+  visible: Boolean!
+}
+
+type SellerShipmentConnection {
+  pageInfo: PageInfo
+  edges: [SellerShipmentEdge!]
+}
+
+type SellerShipmentEdge {
+  cursor: String!
+  node: SellerShipment!
+}
+
+type SellerShipmentItem {
+  id: ID
+  name: String
+  size: String
+  color: String
+  image: String
+  skuId: ID
+  actions: [SellerShipmentAction!]!
+  sellerSkuCode: String
+}
+
+type SellerSku {
+  id: Int!
+  name: String!
+  size: String
+  color: String
+  image: Asset
+  quantity: Int
+}
+
+type SellerStore {
+  id: ID!
+  url: String
+  platform: String!
+}
+
+input SellerStoreInput {
+  shopifySessionToken: String!
+  shopifyAccessToken: String!
+}
+
+type SellerWarehouse {
+  id: ID!
+  warehouse: Warehouse!
+  status: String!
+}
+
+input SellerWarehouseReq {
+  id: ID!
+}
+
+input SendleadNotificationInput {
+  slack: SlackLeadInput
+  googleSheet: GoogleSheetLeadInput
+}
+
+type SeoInfluencer {
+  title: String
+  slug: String
+  label: String
+  labelSlug: String
+  category: String
+  categorySlug: String
+  country: String
+  countrySlug: String
+  ccatid: String
+  language: String
+  type: String
+  contacts: Contacts
+  twitter: Twitter
+  instagram: Instagram
+  facebook: Facebook
+  youtube: Youtube
+}
+
+type SeoInfluencerConnection {
+  edges: [SeoInfluencerEdge!]
+  pageInfo: PageInfo
+}
+
+type SeoInfluencerEdge {
+  node: SeoInfluencer
+  cursor: String
+}
+
+type SeoPageMeta {
+  meta: [Map]
+  type: String
+  seoTemplateType: String
+  query: String
+}
+
+input ServiceabilityInput {
+  inventories: [InventoryUpdateInput!]
+  deliveryPincode: Int!
+  quantity: Int!
+}
+
+type ShareIcon {
+  socialNetworkType: SocialNetworkType!
+  displayName: String!
+  iconImage: String!
+  message: String!
+}
+
+type ShareMessage {
+  templateId: ID!
+  message: String!
+  asset: Asset
+}
+
+type ShipmentAddress {
+  id: ID
+  name: String!
+  address1: String!
+  locality: String
+  city: String!
+  state: String!
+  country: String!
+  pincode: Int!
+  phone: String!
+  landmark: String
+}
+
+type ShippingManifest {
+  id: ID!
+  createdOn: String!
+  createdBy: String!
+  courierPartner: String!
+  courierServiceMode: String!
+  flow: String!
+  status: String!
+  sellerWarehouseId: ID
+  shipmentsCount: Int
+  shipments: [SellerShipment!]
+  asset: Asset
+  csvAsset: Asset
+}
+
+type ShippingManifestConnection {
+  pageInfo: PageInfo
+  edges: [ShippingManifestEdge!]
+}
+
+type ShippingManifestEdge {
+  cursor: String!
+  node: ShippingManifest!
+}
+
+input ShippingManifestInput {
+  courierPartner: String!
+  courierServiceMode: String!
+  sellerWarehouseId: String!
+  flow: String!
+}
+
+input ShopifyAuthInput {
+  shopifySessionToken: ID!
+  shopifyAccessToken: ID!
+}
+
+type ShopifyAuthResponse {
+  status: ResponseStatus!
+  storeConnected: Boolean!
+  accessToken: ID
+  message: String
+}
+
+type ShopLink {
+  id: ID!
+  title: String!
+  subtitle: String
+  url: String!
+  thumbnail: Asset
+  rank: Int
+}
+
+input ShopLinkInput {
+  title: String!
+  subtitle: String
+  url: String!
+  thumbnailAssetId: ID
+}
+
+input ShortlistAnswerInput {
+  questionId: ID!
+  answer: String!
+}
+
+type ShortlistBriefInfo {
+  userInfo: ShortlistedUserInfo
+  shortlistName: String
+  reviewPostReqd: Boolean
+  userStatus: String
+  rejectedReason: String
+  deliverablePostStats: [DeliverablePostStats!]
+}
+
+type ShortlistedUserInfo {
+  name: String
+  email: String
+  phone: String
+  youtubeHandle: String
+  instaHandle: String
+  isBlacklisted: Boolean
+  City: String
+}
+
+type ShowcaseWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  label: String
+  labelColorGradient: ColorGradient
+  banner: Banner
+  title: String
+  icons: [Asset!]
+  message: String
+  actionText: String
+}
+
+type SimpleProduct {
+  icon: Asset
+}
+
+input SimpleProductInput {
+  hostId: ID
+  productType: DigitalProductType
+  name: String
+  status: ProductStatus
+  description: String
+  variant: DigitalProductVariantInput
+  iconId: ID
+}
+
+type Sku {
+  id: ID!
+  name: String
+  color: String!
+  size: String!
+  mrp: Float!
+  image: Asset
+  status: String!
+  product: Product!
+  runningDiscount: Float!
+  sellingPrice: Float!
+}
+
+input SlackLeadInput {
+  text: String!
+}
+
+type SlotInfo {
+  daysLeft: Int!
+  totalSlots: Int!
+  freeSlots: Int!
+}
+
+type SmartCampaign {
+  id: ID
+  ongoing: Boolean!
+  code: String!
+  startTime: String!
+  objective: String!
+  link: String!
+  categoryId: ID!
+  categoryName: String!
+  title: String!
+  sampleAsset: Asset
+  budget: Int!
+  free: Boolean!
+  platforms: [SocialNetworkType!]
+  brandRequirement: String
+  postType: CampaignPostType
+  instaHandle: String
+  saasCollectionType: SaasCollectionType!
+  saasCollectionId: ID
+  targetAudienceGender: TargetAudienceGender
+  targetAudienceLocation: [TargetAudienceLocation!]
+  targetAudienceAge: [String!]
+  targetAudienceCities: [TargetAudienceCity!]
+  status: SmartCampaignStatus!
+  partnerId: ID
+  partnerWebengageUserId: ID
+  reach: Int
+  clicks: Int
+  saasGroupCollectionId: String
+}
+
+type SmartCampaignConnection {
+  edges: [SmartCampaignEdge!]
+  pageInfo: PageInfo!
+}
+
+type SmartCampaignEdge {
+  node: SmartCampaign!
+  cursor: String
+}
+
+input SmartCampaignInput {
+  objective: SmartCampaignObjective!
+  postType: CampaignPostType
+  link: String
+  instaHandle: String
+  categoryId: ID!
+  title: String!
+  sampleAsset: AssetInput
+  budget: Int!
+  startTime: String!
+  free: Boolean!
+  brandRequirement: String
+  tag: String
+  targetAudienceCities: [TargetAudienceCityInput!]
+  targetAudienceGender: TargetAudienceGender
+  targetAudienceLocation: [TargetAudienceLocation!]
+  targetAudienceAge: [String!]
+}
+
+enum SmartCampaignObjective {
+  AWARENESS
+  TRAFFIC
+  CONVERSION
+  CONTENT_GENERATION
+  INFLUENCER_MARKETING
+}
+
+enum SmartCampaignStatus {
+  PENDING_APPROVAL
+  LIVE
+  ENDED
+  APPROVAL_REJECTED
+}
+
+type SocialAccount {
+  id: ID!
+  isUpdatable: Boolean!
+  platformAccountId: String!
+  url: String!
+  name: String
+  handle: String
+  verified: Boolean!
+  platform: SocialNetworkType!
+  accessToken: String
+  insightsAccessToken: String
+  insightsUserId: String
+  accessTokenExpired: Boolean
+  level: SocialLevel
+  metrics: Metrics
+  notice: String
+  existingHandle: Boolean
+  message: String
+  igInfo: InstantGratificationInfo
+  tag: String
+  profileImage: Asset
+  source: String
+  profileType: SocialProfileType
+  warningsOnUpdate: ThingsToRemember
+  campaignProfileId: ID
+}
+
+input SocialAccountInput {
+  handle: String!
+  platform: SocialNetworkType!
+  name: String
+  email: String
+  accessToken: String
+  authCode: String
+  insightsAccessToken: String
+  insightsUserId: String
+}
+
+enum SocialLevel {
+  NANO
+  MICRO
+}
+
+enum SocialNetworkType {
+  GOOGLE
+  FB
+  TWITTER
+  TIKTOK
+  INSTAGRAM
+  YOUTUBE
+  WHATSAPP
+  OTHERS
+  SNAPCHAT
+  PINTEREST
+  LINKEDIN
+  BULBUL
+  DISCORD
+  TWITCH
+  PATREON
+  NONE
+  AMAZON
+  GCC
+}
+
+enum SocialProfileType {
+  PERSONAL
+  CREATOR
+  UNKNOWN
+  BUSINESS_OR_CREATOR
+  BUSINESS
+}
+
+type SocialVideo {
+  socialNetwork: SocialNetworkType!
+  videoUrl: String!
+  videoThumbnail: String
+}
+
+type SourceAccount implements PaymentAccount {
+  id: ID!
+  type: PaymentAccountType!
+  enabled: Boolean
+  accountName: String!
+  accountNickName: String
+}
+
+type State {
+  id: String!
+  name: String
+  gstTin: String
+}
+
+type StateInfo {
+  icon: Asset
+  title: String
+  description: String
+  ctaText: String
+  note: String
+}
+
+input StateInfoInput {
+  icon: AssetInput
+  title: String
+  description: String
+  ctaText: String
+  note: String
+}
+
+type Statistics {
+  v30: String
+  er30: String
+  views: String
+  followers: String
+  uploads: String
+  comments: String
+  views_7: String
+  followers_7: String
+  uploads_7: String
+  views_30: String
+  followers_30: String
+  uploads_30: String
+  views_90: String
+  followers_90: String
+  uploads_90: String
+}
+
+enum StreamCategoryLevel {
+  CATEGORY
+  SUB_CATEGORY
+}
+
+enum StreamStatus {
+  CREATED
+  REVIEW_PENDING
+  SCHEDULED
+  ONGOING
+  END
+}
+
+enum StreamType {
+  LIVE
+  STATIC
+  EMBEDDED
+}
+
+enum StreamWidgetType {
+  NORMAL
+  FLASH
+  STORE
+  HOW_TO
+}
+
+type TargetAudienceCity {
+  name: String
+  fullName: String
+  type: String
+}
+
+input TargetAudienceCityInput {
+  name: String
+  fullName: String
+  type: String
+}
+
+enum TargetAudienceGender {
+  MALE
+  FEMALE
+  ALL
+}
+
+enum TargetAudienceLocation {
+  TIER_1
+  TIER_2
+  TIER_3
+}
+
+type TaskCard {
+  title: String!
+  subtitle: String
+  asset: Asset
+  action: TaskCardAction!
+}
+
+enum TaskCardAction {
+  DOWNLOAD
+  COPY
+  SHARE
+}
+
+type TaskInfo {
+  bgImage: Asset
+  tasks: [RewardLadderTask!]
+}
+
+enum TaskState {
+  COMPLETED
+  LIVE
+  LOCKED
+  EXPIRED
+}
+
+type TatResponse {
+  tatString: String!
+  pincodeServiceable: Boolean!
+  messages: [String!]
+  pincode: Int
+}
+
+type Text {
+  content: String!
+  color: ColorGradient
+  size: Int
+  resolverType: String!
+  weight: FontWeight
+}
+
+type ThingsToRemember {
+  heading: String
+  description: [String!]
+}
+
+input ThirdPartyAccessTokenInput {
+  portalId: ID!
+}
+
+type ThirdPartyAccessTokenResponse {
+  status: ResponseStatus!
+  token: String!
+  portalId: ID!
+  emailVerificationNeeded: Boolean!
+}
+
+type ThirdpartyToken {
+  id: ID!
+  clientId: String!
+  deviceId: String!
+  thirdparty: String!
+  token: String!
+  userId: ID
+  active: Boolean!
+}
+
+input ThirdpartyTokenInput {
+  thirdparty: String!
+  disabled: Boolean
+  token: String!
+}
+
+type Ticker {
+  ID: ID!
+  text: String
+  icon: Asset
+  actionLink: String
+  actionText: String
+  backgroundColor: String
+}
+
+type TickerWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  xOverflow: String
+  data: [Ticker!]
+}
+
+type Tile {
+  contentCategoryId: Int!
+  name: String!
+  count: Int!
+}
+
+type ToolInvoice {
+  id: ID!
+  userId: Int!
+  fullName: String!
+  address: String!
+  gstin: String
+  pan: String
+  bankAccountNumber: String!
+  bankAccountBeneficiaryName: String!
+  bankIfscCode: String!
+  bankName: String!
+  clientName: String!
+  clientAddress: String!
+  clientGstin: String
+  sameState: Boolean!
+  particulars: ToolInvoiceParticularEntry
+  totalAmount: Float
+  invoiceId: String!
+  status: ToolInvoicePaymentStatus!
+  signatureImage: String!
+  date: String!
+  gstValue: Float
+  tdsRate: Float
+  invoiceUrl: String
+  financeNotes: String
+  systemNotes: String
+  invoiceStatus: ToolInvoiceStatus!
+}
+
+type ToolInvoiceConnection {
+  edges: [ToolInvoiceEdge!]
+  pageInfo: PageInfo!
+  totalData: ToolInvoiceTotalMetaResponse
+}
+
+type ToolInvoiceEdge {
+  cursor: ID!
+  node: ToolInvoice!
+}
+
+input ToolInvoiceInput {
+  userId: Int!
+  fullName: String!
+  address: String!
+  gstin: String
+  pan: String
+  bankAccountNumber: String!
+  bankAccountBeneficiaryName: String!
+  bankIfscCode: String!
+  bankName: String!
+  clientName: String!
+  clientAddress: String!
+  clientGstin: String
+  sameState: Boolean
+  particulars: ToolInvoiceParticularInput!
+  totalAmount: Float
+  invoiceId: String!
+  signatureImage: String!
+  gstValue: Float
+  tdsRate: Float
+}
+
+type ToolInvoiceParticularDataEntry {
+  amount: Float
+  count: Int
+  name: String
+  totalAmount: Float
+}
+
+input ToolInvoiceParticularDataInput {
+  amount: Float
+  count: Int
+  name: String
+}
+
+type ToolInvoiceParticularEntry {
+  data: [ToolInvoiceParticularDataEntry!]
+}
+
+input ToolInvoiceParticularInput {
+  data: [ToolInvoiceParticularDataInput!]!
+}
+
+enum ToolInvoicePaymentStatus {
+  FAILED
+  PENDING
+  PROCESSED
+  INITIATED
+  CANCELLED
+}
+
+enum ToolInvoiceStatus {
+  VOID
+  DRAFT
+  ACTIVE
+  ON_HOLD
+}
+
+type ToolInvoiceTotalMetaResponse {
+  pendingTotal: Float!
+  pendingCount: Int!
+  receivedTotal: Float!
+  receivedCount: Int!
+  totalCount: Int!
+}
+
+type TrendingSearch {
+  text: String
+  actionLink: String
+  recoInfo: Map
+  image: Asset
+}
+
+type TrendingSearchWidget implements Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+  data: [TrendingSearch!]
+}
+
+enum TrueCallerRequestStatus {
+  OPEN
+  TOKEN_RECEIVED
+  VERIFIED
+  USER_REJECTED
+}
+
+type TrueCallerResponse {
+  id: ID!
+  secret: String
+  status: TrueCallerRequestStatus!
+}
+
+type Twitter {
+  userid: String
+  username: String
+  statistics: Statistics
+}
+
+input UpdateAmountForCampaignUserInput {
+  shortlistUserId: ID!
+  amount: Float
+  reimbursementAmount: Float
+  customText: String
+  externalCost: Float
+}
+
+input UpdateAmountForShortlist {
+  shortlistId: ID!
+  amount: Float
+  reimbursementAmount: Float
+  customText: String
+  externalCost: Float
+}
+
+input UpdateApplicantStatusInput {
+  campaignId: ID!
+  shortlistId: ID!
+  campaignProfileId: ID
+  platform: SocialNetworkType!
+  handle: String
+  applicantStatus: ApplicantStatus!
+  acceptCampaign: Boolean
+  sampleLink: String
+  language: String
+  price: String
+  customText: String
+  rejectionReason: String
+}
+
+input UpdateContractInput {
+  partnerId: ID!
+  contractType: ContractType!
+  onboardingStatus: OnboardingStatus
+  plan: ContractPlan
+  startTime: Int
+  endTime: Int
+  namespaces: [NamespaceConfigurationInput!]
+}
+
+input UpdatePartnerInput {
+  name: String
+  logo: AssetInput
+}
+
+input UpdateShortlistedStatusInput {
+  campaignId: ID!
+  status: CampaignShortlistStatus!
+  campaignProfileId: ID!
+  shortlistedUserId: ID
+  amount: Float
+  customText: String
+}
+
+type UPIAccount implements PaymentAccount {
+  id: ID!
+  type: PaymentAccountType!
+  enabled: Boolean
+  accountName: String!
+  accountNickName: String
+  upiId: String!
+}
+
+interface UserAccount {
+  accountType: UserAccountType!
+  id: ID!
+  userId: ID!
+  status: UserClientAccountStatus!
+  name: String
+  bio: String
+  profileImage: Asset
+  coverImage: Asset
+  dob: String
+  gender: Gender
+  email: String
+  countryCode: String
+  phone: String
+  whatsappNumber: String
+  whatsappOptin: Boolean
+  publicProfileId: String
+  storeLink: String
+  referralCode: String
+  referredViaCode: String
+  referredViaClientId: String
+  addresses: [UserAddress!]
+  userAddress: UserAddress
+  kycData: PayoutData
+  permissions: [String!]
+  socialAccounts: [SocialAccount!]
+  webengageUserId: ID
+  g3MemberId: ID
+}
+
+type UserAccountConnection {
+  edges: [UserAccountEdge!]
+  pageInfo: PageInfo!
+}
+
+type UserAccountEdge {
+  node: UserAccount!
+  cursor: String
+}
+
+input UserAccountInput {
+  name: String
+  bio: String
+  profileImageId: Int
+  location: String
+  whatsappOptin: Boolean
+  email: String
+  dob: String
+  gender: Gender
+  coverImageId: Int
+  phoneNumber: String
+  languages: [String!]
+  hostProfile: HostInput
+  partnerProfile: PartnerProfileInput
+  whatsappPhone: String
+  barterAllowed: Boolean
+  deviceId: String
+  socialAccounts: [SocialAccountInput!]
+}
+
+enum UserAccountType {
+  CUSTOMER
+  HOST
+  BRAND
+  SELLER
+}
+
+type UserAddress {
+  id: Int!
+  label: String
+  name: String!
+  address1: String!
+  address2: String
+  city: City!
+  state: State!
+  country: Country!
+  locality: Locality
+  pincode: Int!
+  landmark: String
+  phone: String
+  isDefault: Boolean!
+  serviceable: Boolean!
+}
+
+input UserAuthInputV2 {
+  mode: AuthMode!
+  id: String!
+  secret: String
+  name: String
+  phoneNumber: String
+  email: String
+  companyName: String
+  inviteCode: String
+  campaignToolId: String
+  countryCode: String
+  thirdpartyTokens: [ThirdpartyTokenInput!]
+  trueCallerSignatureAlgo: String
+  whatsappOptIn: Boolean
+  password: String
+  partnerContractType: ContractType
+}
+
+type UserAuthResponse {
+  status: ResponseStatus!
+  token: String!
+  refreshToken: String
+  bbDeviceId: String!
+  preferences: Map
+  creatorShopEnabled: Boolean!
+  userAccount: UserAccount
+  isSignup: Boolean!
+  credsLoginEnabled: Boolean!
+  plixxoDataMigrated: Boolean!
+}
+
+input UserCampaignApplicationViewedInput {
+  campaignId: ID!
+  platform: SocialNetworkType!
+  handle: String!
+}
+
+type UserCartCoupons {
+  activeCoupons: [Coupon]
+  inactiveCoupons: [Coupon]
+}
+
+type UserChallengeInfo {
+  maxAllowedCount: Int!
+  userChallengeCount: Int!
+  showChallengeReminderPopup: Boolean!
+}
+
+enum UserClientAccountOnboardingStep {
+  START
+  REVIEW_PENDING
+  INCOMPLETE_INFO
+  REJECTED
+  ACCEPTED
+}
+
+enum UserClientAccountStatus {
+  ONBOARDING
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+type UserSSOResponse {
+  token: String!
+}
+
+enum UserStatus {
+  TEMP_BLOCKED
+  ACTIVE
+  INACTIVE
+  BLOCKED
+  SUSPENDED
+  BLACKLISTED
+}
+
+type VideoHighlightItem implements HighlightItem {
+  id: ID!
+  seen: Boolean!
+  video: Asset
+  socialNetwork: SocialNetworkType!
+  videoUrl: String
+  text: String
+  subText: String
+  actionText: String
+  actionLink: String
+  timestampText: String!
+  shareLink: String
+  live: Boolean!
+}
+
+type ViewAmountConfig {
+  views: Int!
+  amount: Int!
+}
+
+type ViewPayoutSlabs {
+  configs: [ViewAmountConfig!]
+  notes: [String!]
+  title: String
+  description: String
+  footerNote: String
+  currentViews: Int
+}
+
+type Warehouse {
+  id: ID!
+  name: String!
+  address: String!
+  city: String!
+  state: String!
+  country: String!
+  pincode: String!
+  phone: String
+  status: String!
+}
+
+interface Widget {
+  id: ID!
+  dataCount: Int!
+  lazyLoad: Boolean!
+  isLocked: Boolean!
+  span: Int!
+  repeatable: Boolean!
+  paginated: Boolean!
+  header: Header
+  footer: Header
+  variantName: String
+  loginNeeded: Boolean!
+  background: Background
+  actionLink: String
+  lockedMessage: String
+  recoInfo: Map
+}
+
+type WidgetEdge {
+  node: Widget
+  cursor: String
+  slotCount: Int!
+  slotNo: Int!
+}
+
+type WinklBrand {
+  id: ID!
+  companyName: String!
+  isOnboarded: Boolean!
+  logoUrl: String
+  whitelistedToolIds: [Int!]
+}
+
+type WinnersInfo {
+  title: String!
+  viewAllCta: String
+  count: Int!
+  leaderboardEnded: Boolean!
+  winners: [LeaderboardRow!]
+}
+
+input WishlistInput {
+  Fetchsize: Int
+  Start: Int
+}
+
+type WishlistItems {
+  productId: [String!]
+}
+
+type WorkItem {
+  id: ID!
+  createdDate: String!
+  highlightText: String
+  type: WorkItemType!
+  title: String!
+  subtitle: String
+  workItemInfo: [String!]
+  dueDate: String
+  count: Int!
+  status: String!
+  completedOn: String
+  cancelledOn: String
+  howItWorks: Instructions
+  chargeableAmount: Float!
+  flags: Map
+  inputForm: FormSubmission
+  outputForm: FormSubmission
+  imageAsset: Asset
+  buyers: [BuyerInfo!]
+}
+
+type WorkItemConnection {
+  edges: [WorkItemEdge!]
+  pageInfo: PageInfo
+}
+
+type WorkItemEdge {
+  cursor: String!
+  node: WorkItem!
+}
+
+enum WorkItemType {
+  LIVE_VIDEO_CHAT
+  EXCLUSIVE_CONTENT
+  SHOUTOUT
+  PERSONALIZED_VIDEO
+  EVENT
+}
+
+type Youtube {
+  title: String
+  description: String
+  thumbnail: String
+  userid: String
+  category: String
+  cstatus: String
+  createdat: String
+  username: String
+  demographic: Map
+  statistics: Statistics
+}
+
+type YoutubeCommercialCharges {
+  video: Int
+}

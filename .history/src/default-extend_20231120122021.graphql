@@ -1,0 +1,22 @@
+extend type Location {
+  id: ID!
+  name: String!  @fake(type: firstName)
+  fullName: String @fake(type: fullName)
+  locationType: String @fake(type: firstName)
+}
+extend type LocationConnection {
+  pageInfo: PageInfo
+  edges: [LocationEdge!] 
+}
+extend type LocationEdge {
+  edge: [Location!] @value(values: [{id: "1", name: "Mumbai", fullName: "Mumbai", locationType: "city" }, {id: "2", name: "Maharashtra", fullName: "Maharashtra", locationType: "state" }])
+}
+
+type NewGqlModel {
+  name:  String! @fake(type: firstName)
+  description:  String! @fake(type: lorem)
+}
+
+extend type Query {
+  getNewgqlModel: [NewGqlModel!] @listLength(min: 0, max: 3)
+}

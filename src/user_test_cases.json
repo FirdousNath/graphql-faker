@@ -1,0 +1,17 @@
+{
+    "campaignData": [
+        {
+            "id": "1",
+            "name": "Mumbai",
+            "fullName": "Mumbai",
+            "locationType": "city"
+        },
+        {
+            "id": "2",
+            "name": "Maharashtra",
+            "fullName": "Maharashtra",
+            "locationType": "state"
+        }
+    ],
+    "userData": "Firdous"
+}

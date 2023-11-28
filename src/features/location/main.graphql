@@ -1,0 +1,22 @@
+extend type Location {
+  id: ID!
+  name: String!  @fake(type: firstName)
+  fullName: String @fake(type: fullName)
+  locationType: String @fake(type: firstName)
+}
+extend type LocationConnection {
+  pageInfo: PageInfo
+  edges: [LocationEdge!] 
+}
+extend type LocationEdge {
+  edge: [Location!] @value(values: $locationData) 
+}
+
+type NewGqlModel {
+    name: String! @value(value: $userName)
+    description: String @fake(type: lorem)   
+}
+
+extend type Query {
+  getNewGqlModel: [NewGqlModel!] @listLength(min: 0, max: 3)
+}

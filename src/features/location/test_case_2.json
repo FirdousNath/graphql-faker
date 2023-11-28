@@ -1,0 +1,17 @@
+{
+    "locationData": [
+        {
+            "id": "1",
+            "name": "Udaipur",
+            "fullName": "Udaipur",
+            "locationType": "city"
+        },
+        {
+            "id": "2",
+            "name": "Rajasthan",
+            "fullName": "Rajasthan",
+            "locationType": "state"
+        }
+    ],
+    "userName": "Firdous Nath"
+}
